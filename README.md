@@ -1,11 +1,5 @@
-E-COMMERCE
+PANAS
 
-SOVIETICA 
+Proyecto para Lavadero de Autos
 
-Equipo 6
-Fran Goñi
-Coqui Pozzi
-Santi Montalvo
-Christian Chen
-Pilar Fernandez
-Mentor: joaco
+Trackeo de proceso interno y métricas
