@@ -8,13 +8,14 @@ const clientSchema = new Schema({
     required: true,
     match: [/.+\@.+\..+/, "Por favor ingrese un correo válido"],
   },
-  nombreCompleto: {
+  nombre: {
     type: String,
     required: true,
   },
   telefono: {
     type: Number,
     required: true,
+    set: (telefono) => Number(`54011${telefono}`),
   },
   //GUARDAR CON MAYUSCULA Y SIN ESPACIOS
   patente: {

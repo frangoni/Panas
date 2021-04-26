@@ -1,18 +1,7 @@
 const Client = require("../models/client");
 
-const createClient = async (req, res, next) => {
-  const data = req.body;
-  try {
-    const newClient = await Client.create(data);
-    res.status(201).send(newClient);
-  } catch (error) {
-    console.log("ERROR AL CREAR CLIENTE", error);
-    res.status(503).send(error);
-  }
-};
-
-const findClient = async (req, res, next) => {
-  const patente = req.body;
+const findClient = async (req, res) => {
+  const patente = req.params;
   try {
     const cliente = await Client.findOne(patente);
     res.status(201).send(cliente);
@@ -22,4 +11,4 @@ const findClient = async (req, res, next) => {
   }
 };
 
-module.exports = { createClient, findClient };
+module.exports = { findClient };

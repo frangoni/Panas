@@ -2,6 +2,13 @@ const mongoose = require("mongoose");
 const { Schema, Types } = mongoose;
 
 const serviceSchema = new Schema({
+  producto: {
+    type: Types.ObjectId,
+    ref: "Product",
+  },
+  precio: {
+    type: Number,
+  },
   horaDeEntrada: {
     type: Date,
     default: Date.now,
@@ -9,31 +16,36 @@ const serviceSchema = new Schema({
   horaEstimada: {
     type: Date,
   },
-  precio: {
-    type: Number,
-  },
   estado: {
     type: String,
   },
   observaciones: {
     type: String,
   },
-  abondado: {
+  abonado: {
     type: Boolean,
     default: false,
-  },
-  producto: {
-    type: Types.ObjectId,
-    ref: "Product",
   },
   cliente: {
     type: Types.ObjectId,
     ref: "Client",
   },
-  estacion1: {
-    type: String,
+  checkin: {
+    type: Date,
+    default: Date.now(),
   },
-  // VER CUANTAS ESTACIONES CON DARÍO
+  interior: {
+    type: Date,
+  },
+  tunel: {
+    type: Date,
+  },
+  secado: {
+    type: Date,
+  },
+  parking: {
+    type: Date,
+  },
 });
 
 const Service = mongoose.model("Service", serviceSchema);

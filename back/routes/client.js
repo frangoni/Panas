@@ -2,9 +2,8 @@
 
 const express = require("express");
 const router = express.Router();
-const { createClient, findClient } = require("../controllers/client");
+const { findClient } = require("../controllers/client");
 
-router.get("/", findClient);
-router.post("/", createClient);
+router.get("/:patente", findClient);
 
 module.exports = router;

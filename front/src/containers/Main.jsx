@@ -1,7 +1,15 @@
 import React from "react";
 import { Route, Redirect, Switch } from "react-router-dom";
-import { connect } from "react-redux";
+import Checkin from "./CheckinContainer";
+import Dashboard from "./DashboardContainer";
 
-const Main = () => {};
+export default function Main() {
+  return (
+    <Switch>
+      <Route exact path="/checkin" component={Checkin} />
+      <Route exact path="/admin" component={Dashboard} />
 
-export default Main;
+      <Redirect from="/*" to="/" />
+    </Switch>
+  );
+}
