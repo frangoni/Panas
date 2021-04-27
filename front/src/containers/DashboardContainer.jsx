@@ -18,7 +18,7 @@ import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import IconButton from "@material-ui/core/IconButton";
 
-import Checkin from "../containers/CheckinContainer";
+import AddProducts from "../containers/AddProductContainer";
 
 const drawerWidth = 240;
 
@@ -26,6 +26,8 @@ const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
     height: "100vh",
+    width: "100%",
+    background: "rgb(40, 44, 52)",
   },
   toolbarIcon: {
     display: "flex",
@@ -130,7 +132,7 @@ export default function Panel() {
       <Container maxWidth="lg" className={classes.container}>
         <Grid>
           <Grid item xs={12}>
-            {items == 1 && <Checkin />}
+            {items == 3 && <AddProducts />}
           </Grid>
         </Grid>
       </Container>

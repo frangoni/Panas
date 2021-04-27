@@ -12,15 +12,17 @@ export const createService = createAsyncThunk("CREATE_SERVICE", (data) => {
 
 const initialState = {
   services: [],
-  created: true,
+  created: "",
   singleService: {},
 };
 
 const service = createReducer(initialState, {
   [createService.fulfilled]: (state, action) => {
-    console.log("action :", action);
-    if (action.payload) return { ...state, created: true, singleService: action.payload };
-    else return { ...state, created: false };
+    if (action.payload) return { ...state, created: "yes", singleService: action.payload };
+    else return { ...state, created: "no" };
+  },
+  [createService.pending]: (state) => {
+    return { ...state, created: "" };
   },
 });
 

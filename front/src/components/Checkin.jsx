@@ -1,7 +1,7 @@
 import React from "react";
 import { Select, MenuItem, TextField, Button } from "@material-ui/core";
 import GlassCard from "./styledcomponents";
-const Checkin = ({ datos, setters, handleSubmit, border, handlePatente }) => {
+const Checkin = ({ datos, setters, handleSubmit, border, handlePatente, disabled }) => {
   const { patente, marca, modelo, nombre, telefono, email, estado, observaciones, producto } = datos;
   const { setMarca, setModelo, setNombre, setTelefono, setEmail, setEstado, setObservaciones, setProducto } = setters;
   const colorInput = "white";
@@ -10,7 +10,7 @@ const Checkin = ({ datos, setters, handleSubmit, border, handlePatente }) => {
   return (
     <GlassCard style={{ border: `thin solid ${border}` }}>
       <h2 className="title">CHECK-IN</h2>
-      <div id="checkin">
+      <div id="form">
         <TextField
           InputProps={{ style: { color: colorInput } }}
           InputLabelProps={{ style: { color: colorLabel } }}
@@ -26,6 +26,7 @@ const Checkin = ({ datos, setters, handleSubmit, border, handlePatente }) => {
           label="Marca"
           variant="outlined"
           value={marca}
+          disabled={disabled}
           onChange={({ target: { value } }) => setMarca(value)}
         />
         <TextField
@@ -35,6 +36,7 @@ const Checkin = ({ datos, setters, handleSubmit, border, handlePatente }) => {
           variant="outlined"
           label="Modelo"
           value={modelo}
+          disabled={disabled}
           onChange={({ target: { value } }) => setModelo(value)}
         />
         <TextField
@@ -44,14 +46,14 @@ const Checkin = ({ datos, setters, handleSubmit, border, handlePatente }) => {
           variant="outlined"
           label="Nombre completo"
           value={nombre}
+          disabled={disabled}
           onChange={({ target: { value } }) => setNombre(value)}
         />
         <div>
           <TextField
             InputProps={{ style: { color: colorInput } }}
             InputLabelProps={{ style: { color: colorLabel } }}
-            required
-            disabled={true}
+            disabled
             label="Teléfono"
             defaultValue={`+54 011`}
             style={{ width: " 30%" }}
@@ -63,7 +65,8 @@ const Checkin = ({ datos, setters, handleSubmit, border, handlePatente }) => {
             variant="outlined"
             style={{ width: "70%" }}
             value={telefono}
-            onChange={({ target: { value } }) => setTelefono(value)}
+            disabled={disabled}
+            onChange={({ target: { value } }) => /^[0-9\b]+$/.test(value) && setTelefono(value)}
           />
         </div>
         <TextField
@@ -73,6 +76,7 @@ const Checkin = ({ datos, setters, handleSubmit, border, handlePatente }) => {
           variant="outlined"
           label="Email"
           value={email}
+          disabled={disabled}
           onChange={({ target: { value } }) => setEmail(value)}
         />
 
@@ -99,12 +103,19 @@ const Checkin = ({ datos, setters, handleSubmit, border, handlePatente }) => {
           value={observaciones}
           onChange={({ target: { value } }) => setObservaciones(value)}
         />
-        <Select required value={producto} onChange={({ target: { value } }) => setProducto(value)} label="Productos">
-          <MenuItem value={"Lavado 1"}>Lavado 1</MenuItem>
-          <MenuItem value={"Lavado 2"}>Lavado 2</MenuItem>
-          <MenuItem value={"Lavado 3"}>Lavado 3</MenuItem>
+        <Select
+          native
+          required
+          inputProps={{ style: { color: colorInput } }}
+          value={producto}
+          onChange={({ target: { value } }) => setProducto(value)}
+          label="Productos"
+        >
+          <option value={"Lavado 1"}>Lavado 1</option>
+          <option value={"Lavado 2"}>Lavado 2</option>
+          <option value={"Lavado 3"}>Lavado 3</option>
         </Select>
-        <Button id="btn-checkin" size="large" style={{ border: `thin solid ${border}` }} onClick={handleSubmit}>
+        <Button id="btn" size="large" style={{ border: `thin solid ${border}` }} onClick={handleSubmit}>
           CHECKIN
         </Button>
       </div>

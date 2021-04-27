@@ -1,7 +1,8 @@
 const Product = require("../models/product");
 
-const createProduct = async (req, res, next) => {
+const createProduct = async (req, res) => {
   const product = req.body;
+  console.log("product :", product);
   try {
     const createdProduct = await Product.create(product);
     res.status(201).send(createdProduct);
@@ -10,7 +11,7 @@ const createProduct = async (req, res, next) => {
     res.status(503).send(error);
   }
 };
-const updatePrice = async (req, res, next) => {
+const updatePrice = async (req, res) => {
   const id = req.params.id;
   const precio = req.body;
   console.log("ID", id, "PRECIO", precio);
@@ -22,7 +23,7 @@ const updatePrice = async (req, res, next) => {
     res.send(503, error);
   }
 };
-const deleteProduct = async (req, res, next) => {
+const deleteProduct = async (req, res) => {
   const id = req.params.id;
   try {
     const deletedProduct = await Product.findByIdAndDelete(id);

@@ -3,9 +3,10 @@ import styled from "styled-components";
 const GlassCard = styled.div`
   width: min-content;
   border-radius: 60px;
-  box-shadow: 0 0 2rem 0 rgba(0, 0, 0, 0.2);
-  margin: 15px auto;
-  background-color: rgba(255, 255, 255, 0.15);
+  box-shadow: inset -10px -10px 15px rgba(40, 44, 52, 0.7), inset 10px 10px 15px rgba(255, 255, 255, 0.17);
+  margin: 10vh auto;
+  backdrop-filter: blur(15px);
+  background-color: rgba(255, 255, 255, 0.2);
 `;
 
 export default GlassCard;

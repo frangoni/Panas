@@ -4,21 +4,27 @@ const messagesHandler = ({ enqueueSnackbar }) => {
       enqueueSnackbar(`${msg}`, {
         variant: "error",
         preventDuplicate: true,
-        anchorOrigin: { vertical: "top", horizontal: "center" },
+        anchorOrigin: { vertical: "bottom", horizontal: "center" },
+        autoHideDuration: 2000,
+        containerRoot: { position: "fixed" },
       }),
 
     success: (msg) =>
       enqueueSnackbar(`${msg}`, {
         variant: "success",
         preventDuplicate: true,
-        anchorOrigin: { vertical: "top", horizontal: "center" },
+        anchorOrigin: { vertical: "bottom", horizontal: "center" },
+        autoHideDuration: 2000,
+        containerRoot: { position: "fixed" },
       }),
 
     info: (msg) =>
       enqueueSnackbar(`${msg}`, {
         variant: "info",
         preventDuplicate: true,
-        anchorOrigin: { vertical: "top", horizontal: "center" },
+        anchorOrigin: { vertical: "bottom", horizontal: "center" },
+        autoHideDuration: 2000,
+        containerRoot: { position: "fixed" },
       }),
   };
 

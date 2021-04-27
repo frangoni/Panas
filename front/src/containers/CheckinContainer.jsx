@@ -13,14 +13,15 @@ const CheckinContainer = () => {
   const [marca, setMarca] = useState("");
   const [modelo, setModelo] = useState("");
   const [nombre, setNombre] = useState("");
-  const [telefono, setTelefono] = useState(0);
+  const [telefono, setTelefono] = useState("");
   const [email, setEmail] = useState("");
   const [estado, setEstado] = useState("");
   const [observaciones, setObservaciones] = useState("");
   const [producto, setProducto] = useState("");
   const [precio, setPrecio] = useState(0);
   const notification = messageHandler(useSnackbar());
-  const [border, setBorder] = useState("lime");
+  const [border, setBorder] = useState("transparent");
+  const [disabled, setDisabled] = useState(false);
   const { created } = useSelector((state) => state.service);
   const { client } = useSelector((state) => state.client);
 
@@ -42,10 +43,12 @@ const CheckinContainer = () => {
     if (initialRender) {
       initialRender = false;
     } else {
-      if (created) {
+      if (created == "yes") {
         setBorder("lime");
+        emptyForm();
         notification.success("Auto ingresado!");
-      } else {
+        setDisabled(false);
+      } else if (created == "no") {
         setBorder("red");
         notification.error("No se pudo crear, corrobore los datos ingresados");
       }
@@ -65,12 +68,13 @@ const CheckinContainer = () => {
       setModelo(client.modelo);
       setNombre(client.nombre);
       setEmail(client.email);
-      setTelefono(client.telefono);
+      setTelefono(client.telefono.toString());
+      setDisabled(true);
     }
   }, [client]);
 
   const handlePatente = ({ target: { value } }) => {
-    const valor = value.toUpperCase().trim(" ");
+    const valor = value.toUpperCase().trim(" ").slice(0, 7);
     setPatente(valor);
   };
 
@@ -81,7 +85,7 @@ const CheckinContainer = () => {
     if (!modelo.length) error = { ...error, modelo: "Ingresar modelo" };
     if (!nombre.length) error = { ...error, nombre: "Ingresar nombre" };
     if (!telefono.length) error = { ...error, telefono: "Ingresar telefono" };
-    if (!email.length) error = { ...error, email: "Ingresar email" };
+    if (!email.length || !/.+\@.+\..+/.test(email)) error = { ...error, email: "Ingresar email correctamente" };
     if (!producto.length) error = { ...error, producto: "Ingresar producto" };
     //setPrecio
     let errorArray = Object.values(error);
@@ -90,7 +94,6 @@ const CheckinContainer = () => {
     let service = { producto, precio, estado, observaciones };
     if (!errorArray.length) {
       dispatch(createService({ service, client }));
-      emptyForm();
     } else {
       notification.error(errorArray[0]);
       setBorder("red");
@@ -112,6 +115,7 @@ const CheckinContainer = () => {
       handleSubmit={handleSubmit}
       border={border}
       handlePatente={handlePatente}
+      disabled={disabled}
     />
   );
 };
