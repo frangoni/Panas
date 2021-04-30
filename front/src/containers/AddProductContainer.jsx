@@ -11,7 +11,7 @@ const AddProductsContainer = () => {
   const [precio, setPrecio] = useState("");
   const dispatch = useDispatch();
   const notification = messageHandler(useSnackbar());
-  const [border, setBorder] = useState("lime");
+  const [border, setBorder] = useState("");
   const { product, created } = useSelector((state) => state.product);
 
   const emptyForm = () => {

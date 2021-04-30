@@ -7,6 +7,9 @@ const GlassCard = styled.div`
   margin: 10vh auto;
   backdrop-filter: blur(15px);
   background-color: rgba(255, 255, 255, 0.2);
+  @media (max-width: 1200px) {
+    margin: 1vh auto;
+  }
 `;
 
 export default GlassCard;

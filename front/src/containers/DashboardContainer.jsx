@@ -28,6 +28,7 @@ const useStyles = makeStyles((theme) => ({
     height: "100vh",
     width: "100%",
     background: "rgb(40, 44, 52)",
+    position: "fixed",
   },
   toolbarIcon: {
     display: "flex",
@@ -67,6 +68,9 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "column",
     justifyContent: "space-around",
     height: "100%",
+  },
+  container: {
+    margin: "10vh auto",
   },
 }));
 

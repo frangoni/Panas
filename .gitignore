@@ -62,5 +62,8 @@ typings/
 # dotenv environment variables file
 .env
 
-# pdf
+# imagenes
 .pdf
+.png
+.jpg
+.ai 
