@@ -1,9 +1,9 @@
 import React from "react";
-import { Select, MenuItem, TextField, Button } from "@material-ui/core";
-import GlassCard from "./styledcomponents";
+import { TextField, Button, NativeSelect } from "@material-ui/core";
+import { GlassCard } from "./styledcomponents";
 const Checkin = ({ datos, setters, handleSubmit, border, handlePatente, disabled }) => {
-  const { patente, marca, modelo, nombre, telefono, email, estado, observaciones, producto } = datos;
-  const { setMarca, setModelo, setNombre, setTelefono, setEmail, setEstado, setObservaciones, setProducto } = setters;
+  const { patente, marca, modelo, nombre, telefono, email, estado, observaciones, products } = datos;
+  const { setMarca, setModelo, setNombre, setTelefono, setEmail, setEstado, setObservaciones, handleProduct } = setters;
   const colorInput = "white";
   const colorLabel = "wheat";
 
@@ -103,18 +103,21 @@ const Checkin = ({ datos, setters, handleSubmit, border, handlePatente, disabled
           value={observaciones}
           onChange={({ target: { value } }) => setObservaciones(value)}
         />
-        <Select
-          native
-          required
+        <NativeSelect
           inputProps={{ style: { color: colorInput } }}
-          value={producto}
-          onChange={({ target: { value } }) => setProducto(value)}
+          onChange={({ target: { value } }) => handleProduct(value)}
           label="Productos"
         >
-          <option value={"Lavado 1"}>Lavado 1</option>
-          <option value={"Lavado 2"}>Lavado 2</option>
-          <option value={"Lavado 3"}>Lavado 3</option>
-        </Select>
+          <option selected value="" disabled>
+            ELEGIR PRODUCTO
+          </option>
+          {products &&
+            products.map((product, i) => (
+              <option key={i} value={i}>
+                {product.nombre}
+              </option>
+            ))}
+        </NativeSelect>
         <Button id="btn" size="large" style={{ border: `thin solid ${border}` }} onClick={handleSubmit}>
           CHECKIN
         </Button>

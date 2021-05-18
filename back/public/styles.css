@@ -2,16 +2,11 @@
   box-sizing: border-box;
   transition: 0.5s ease !important;
   font-family: "Poppins", sans-serif;
+  scroll-behavior: smooth;
 }
 
-html {
-  background: rgb(40, 44, 52);
-}
 body {
   background: linear-gradient(145deg, rgba(40, 44, 52, 1) 0%, rgba(40, 44, 52, 1) 96%);
-  /*   background: #2f7336;
-  background: -webkit-linear-gradient(to right, #aa3a38, #2f7336);
-  background: linear-gradient(to right, #aa3a38, #2f7336); */
   background-attachment: fixed;
 }
 
@@ -40,7 +35,7 @@ body {
   border-radius: 60px;
   align-items: center;
   margin: 0 auto;
-  color: wheat;
+  color: rgb(221, 218, 213);
   outline: none;
 }
 

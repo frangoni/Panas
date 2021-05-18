@@ -63,4 +63,4 @@ app.use((err, req, res, next) => {
   res.sendStatus(404).send(err);
 });
 
-app.listen(3000, () => console.log("PORT 3000"));
+app.listen(3000, () => console.log(`Try out http://localhost:3000/`));

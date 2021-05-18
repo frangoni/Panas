@@ -2,10 +2,11 @@
 
 const express = require("express");
 const router = express.Router();
-const { createProduct, updatePrice, deleteProduct } = require("../controllers/product");
+const { createProduct, updateProduct, deleteProduct, getProducts } = require("../controllers/product");
 
 router.post("/", createProduct);
-router.patch("/:id", updatePrice);
+router.get("/", getProducts);
+router.patch("/:id", updateProduct);
 router.delete("/:id", deleteProduct);
 
 module.exports = router;

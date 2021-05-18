@@ -11,12 +11,11 @@ const createProduct = async (req, res) => {
     res.status(503).send(error);
   }
 };
-const updatePrice = async (req, res) => {
+const updateProduct = async (req, res) => {
   const id = req.params.id;
-  const precio = req.body;
-  console.log("ID", id, "PRECIO", precio);
+  const { precio, nombre } = req.body;
   try {
-    const product = await Product.findByIdAndUpdate(id, precio);
+    const product = await Product.findByIdAndUpdate(id, { precio, nombre });
     res.status(301).send(product);
   } catch (error) {
     console.log("ERROR AL CAMBIAR PRECIO", error);
@@ -34,4 +33,14 @@ const deleteProduct = async (req, res) => {
   }
 };
 
-module.exports = { createProduct, updatePrice, deleteProduct };
+const getProducts = async (req, res) => {
+  try {
+    const products = await Product.find();
+    res.status(200).send(products);
+  } catch (error) {
+    console.log("ERROR AL BUSCAR PRODUCTOS:", error);
+    res.status(503, error);
+  }
+};
+
+module.exports = { createProduct, updateProduct, deleteProduct, getProducts };

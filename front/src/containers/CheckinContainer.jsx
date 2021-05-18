@@ -5,10 +5,13 @@ import { useSnackbar } from "notistack";
 import { useDispatch, useSelector } from "react-redux";
 import { createService } from "../../store/reducer/service";
 import { findClient } from "../../store/reducer/client";
+import { fecthProducts } from "../../store/reducer/product";
+import { TransitionDiv } from "../components/styledcomponents";
 
 let initialRender = true;
 
 const CheckinContainer = () => {
+  //STATE
   const [patente, setPatente] = useState("");
   const [marca, setMarca] = useState("");
   const [modelo, setModelo] = useState("");
@@ -17,15 +20,17 @@ const CheckinContainer = () => {
   const [email, setEmail] = useState("");
   const [estado, setEstado] = useState("");
   const [observaciones, setObservaciones] = useState("");
-  const [producto, setProducto] = useState("");
+  const [producto, setProducto] = useState({});
   const [precio, setPrecio] = useState(0);
-  const notification = messageHandler(useSnackbar());
   const [border, setBorder] = useState("transparent");
   const [disabled, setDisabled] = useState(false);
+  //REDUX
   const { created } = useSelector((state) => state.service);
   const { client } = useSelector((state) => state.client);
-
+  const { products } = useSelector(({ product }) => product);
   const dispatch = useDispatch();
+
+  const notification = messageHandler(useSnackbar());
 
   const emptyForm = () => {
     setPatente("");
@@ -39,6 +44,7 @@ const CheckinContainer = () => {
     setProducto("");
   };
 
+  //USE EFFECT
   useEffect(() => {
     if (initialRender) {
       initialRender = false;
@@ -73,9 +79,22 @@ const CheckinContainer = () => {
     }
   }, [client]);
 
+  useEffect(() => {
+    dispatch(fecthProducts());
+  }, []);
+
+  //HANDLERS
   const handlePatente = ({ target: { value } }) => {
     const valor = value.toUpperCase().trim(" ").slice(0, 7);
     setPatente(valor);
+  };
+
+  const handleProduct = (value) => {
+    const product = products[value];
+    const productID = product._id;
+    const precio = product.precio;
+    setProducto(productID);
+    setPrecio(precio);
   };
 
   const handleSubmit = () => {
@@ -87,11 +106,12 @@ const CheckinContainer = () => {
     if (!telefono.length) error = { ...error, telefono: "Ingresar telefono" };
     if (!email.length || !/.+\@.+\..+/.test(email)) error = { ...error, email: "Ingresar email correctamente" };
     if (!producto.length) error = { ...error, producto: "Ingresar producto" };
+    console.log("producto :", producto);
     //setPrecio
     let errorArray = Object.values(error);
     let client = { patente, marca, modelo, nombre, telefono, email };
-    console.log("client :", client);
     let service = { producto, precio, estado, observaciones };
+    console.log("service :", service);
     if (!errorArray.length) {
       dispatch(createService({ service, client }));
     } else {
@@ -100,23 +120,25 @@ const CheckinContainer = () => {
     }
   };
   return (
-    <Checkin
-      datos={{ patente, marca, modelo, nombre, telefono, email, estado, observaciones, producto }}
-      setters={{
-        setMarca,
-        setModelo,
-        setNombre,
-        setTelefono,
-        setEmail,
-        setEstado,
-        setObservaciones,
-        setProducto,
-      }}
-      handleSubmit={handleSubmit}
-      border={border}
-      handlePatente={handlePatente}
-      disabled={disabled}
-    />
+    <TransitionDiv>
+      <Checkin
+        datos={{ patente, marca, modelo, nombre, telefono, email, estado, observaciones, precio, producto, products }}
+        setters={{
+          setMarca,
+          setModelo,
+          setNombre,
+          setTelefono,
+          setEmail,
+          setEstado,
+          setObservaciones,
+          handleProduct,
+        }}
+        handleSubmit={handleSubmit}
+        border={border}
+        handlePatente={handlePatente}
+        disabled={disabled}
+      />
+    </TransitionDiv>
   );
 };
 

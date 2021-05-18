@@ -1,6 +1,6 @@
 import React from "react";
 import { Button, TextField } from "@material-ui/core";
-import GlassCard from "./styledcomponents";
+import { GlassCard } from "./styledcomponents";
 
 const AdminProducts = ({ handleSubmit, setNombre, setPrecio, border, nombre, precio }) => {
   const colorInput = "white";
@@ -8,7 +8,7 @@ const AdminProducts = ({ handleSubmit, setNombre, setPrecio, border, nombre, pre
 
   return (
     <GlassCard style={{ border: `thin solid ${border}` }}>
-      <h2 className="title"> AÑADIR PRODUCTOS</h2>
+      <h2 className="title"> NUEVO PRODUCTO</h2>
       <div id="form">
         <TextField
           InputProps={{ style: { color: colorInput } }}

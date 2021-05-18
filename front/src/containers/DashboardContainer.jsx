@@ -19,6 +19,8 @@ import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import IconButton from "@material-ui/core/IconButton";
 
 import AddProducts from "../containers/AddProductContainer";
+import { TransitionDiv } from "../components/styledcomponents";
+import AllProducts from "../components/AllProducts";
 
 const drawerWidth = 240;
 
@@ -27,7 +29,6 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     height: "100vh",
     width: "100%",
-    background: "rgb(40, 44, 52)",
     position: "fixed",
   },
   toolbarIcon: {
@@ -44,7 +45,7 @@ const useStyles = makeStyles((theme) => ({
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
     }),
-    backgroundColor: "mediumaquamarine",
+    backgroundColor: "rgba(80, 69, 69)",
   },
   drawerPaperClose: {
     overflowX: "hidden",
@@ -95,13 +96,13 @@ export default function Panel() {
         {open ? (
           <div className={classes.toolbarIcon}>
             <IconButton onClick={handleDrawerOpen} style={{ outline: "none" }}>
-              <ChevronLeftIcon />
+              <ChevronLeftIcon style={{ color: "white" }} />
             </IconButton>
           </div>
         ) : (
           <div className={classes.toolbarIcon}>
             <IconButton onClick={handleDrawerOpen} style={{ outline: "none" }}>
-              <ChevronRightIcon />
+              <ChevronRightIcon style={{ color: "white" }} />
             </IconButton>
           </div>
         )}
@@ -110,25 +111,25 @@ export default function Panel() {
         <div className={classes.icons}>
           <ListItem button onClick={() => setItems(1)}>
             <ListItemIcon>
-              <ShoppingBasketIcon />
+              <ShoppingBasketIcon style={{ color: "white" }} />
             </ListItemIcon>
-            <ListItemText primary="Productos" />
+            <ListItemText style={{ color: "white" }} primary="Productos" />
           </ListItem>
           <Divider />
 
           <ListItem button onClick={() => setItems(6)}>
             <ListItemIcon>
-              <BarChartIcon />
+              <BarChartIcon style={{ color: "white" }} />
             </ListItemIcon>
-            <ListItemText primary="Métricas" />
+            <ListItemText style={{ color: "white" }} primary="Métricas" />
           </ListItem>
           <Divider />
 
           <ListItem button onClick={() => setItems(3)}>
             <ListItemIcon>
-              <AddIcon />
+              <AddIcon style={{ color: "white" }} />
             </ListItemIcon>
-            <ListItemText primary="Añadir Productos" />
+            <ListItemText style={{ color: "white" }} primary="Añadir Productos" />
           </ListItem>
         </div>
       </Drawer>
@@ -136,7 +137,18 @@ export default function Panel() {
       <Container maxWidth="lg" className={classes.container}>
         <Grid>
           <Grid item xs={12}>
-            {items == 3 && <AddProducts />}
+            {items == 3 && (
+              <TransitionDiv>
+                <AddProducts />
+              </TransitionDiv>
+            )}
+          </Grid>
+          <Grid item xs={12}>
+            {items == 1 && (
+              <TransitionDiv>
+                <AllProducts />
+              </TransitionDiv>
+            )}
           </Grid>
         </Grid>
       </Container>
