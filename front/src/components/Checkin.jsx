@@ -113,7 +113,7 @@ const Checkin = ({ datos, setters, handleSubmit, border, handlePatente, disabled
           </option>
           {products &&
             products.map((product, i) => (
-              <option key={i} value={i}>
+              <option style={{color:"black"}} key={i} value={i}>
                 {product.nombre}
               </option>
             ))}

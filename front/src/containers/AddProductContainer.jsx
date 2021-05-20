@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
 import AddProducts from "../components/AddProduct";
-import { createProduct } from "../../store/reducer/product";
+import { createProduct, cleanState } from "../../store/reducer/product";
 import { useDispatch, useSelector } from "react-redux";
 import { useSnackbar } from "notistack";
 import messageHandler from "../../utils/notifications";
-let initialRender = true;
 
 const AddProductsContainer = () => {
   const [nombre, setNombre] = useState("");
@@ -18,19 +17,19 @@ const AddProductsContainer = () => {
     setNombre("");
     setPrecio("");
   };
+
   useEffect(() => {
-    if (initialRender) {
-      initialRender = false;
-    } else {
-      if (created == "yes") {
+     if (created == "yes") {
         setBorder("lime");
+        setTimeout(()=>{setBorder("")}, 2500)
         emptyForm();
         notification.success(`Producto "${product.nombre}" creado!`);
       } else if (created == "no") {
         setBorder("red");
+        setTimeout(()=>{setBorder("")}, 2500)
         notification.error("No se pudo crear, corrobore los datos ingresados");
       }
-    }
+      dispatch(cleanState())
   }, [created]);
 
   const handleSubmit = () => {

@@ -20,7 +20,7 @@ import IconButton from "@material-ui/core/IconButton";
 
 import AddProducts from "../containers/AddProductContainer";
 import { TransitionDiv } from "../components/styledcomponents";
-import AllProducts from "../components/AllProducts";
+import AllProductsContainer from "./AllProductsContainer";
 
 const drawerWidth = 240;
 
@@ -111,20 +111,18 @@ export default function Panel() {
         <div className={classes.icons}>
           <ListItem button onClick={() => setItems(1)}>
             <ListItemIcon>
-              <ShoppingBasketIcon style={{ color: "white" }} />
-            </ListItemIcon>
-            <ListItemText style={{ color: "white" }} primary="Productos" />
-          </ListItem>
-          <Divider />
-
-          <ListItem button onClick={() => setItems(6)}>
-            <ListItemIcon>
               <BarChartIcon style={{ color: "white" }} />
             </ListItemIcon>
             <ListItemText style={{ color: "white" }} primary="Métricas" />
           </ListItem>
           <Divider />
-
+          <ListItem button onClick={() => setItems(2)}>
+            <ListItemIcon>
+              <ShoppingBasketIcon style={{ color: "white" }} />
+            </ListItemIcon>
+            <ListItemText style={{ color: "white" }} primary="Productos" />
+          </ListItem>
+          <Divider />
           <ListItem button onClick={() => setItems(3)}>
             <ListItemIcon>
               <AddIcon style={{ color: "white" }} />
@@ -137,16 +135,16 @@ export default function Panel() {
       <Container maxWidth="lg" className={classes.container}>
         <Grid>
           <Grid item xs={12}>
-            {items == 3 && (
+            {items == 2 && (
               <TransitionDiv>
-                <AddProducts />
+                <AllProductsContainer />
               </TransitionDiv>
             )}
           </Grid>
           <Grid item xs={12}>
-            {items == 1 && (
+            {items == 3 && (
               <TransitionDiv>
-                <AllProducts />
+                <AddProducts />
               </TransitionDiv>
             )}
           </Grid>

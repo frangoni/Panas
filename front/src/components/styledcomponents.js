@@ -1,4 +1,4 @@
-import styled, { keyframes } from "styled-components";
+import styled, { keyframes } from 'styled-components';
 
 export const GlassCard = styled.div`
   width: min-content;
@@ -27,11 +27,11 @@ export const TransitionDiv = styled.div`
 `;
 
 export const Table = styled.table`
-  background-color: rgba(81, 79, 76);
+  margin: 10vh auto;
   border-radius: 25px;
   width: 80%;
   box-shadow: inset -10px -10px 15px rgba(40, 44, 52, 0.7), inset 10px 10px 15px rgba(255, 255, 255, 0.17);
-  margin: 10vh auto;
+  background-color: rgba(81, 79, 76);
   @media (max-width: 1200px) {
     margin: 1vh auto;
   }
@@ -39,15 +39,6 @@ export const Table = styled.table`
 export const TableRow = styled.tr`
   text-align: center;
   color: white;
-  &:nth-child(even) {
-    background-color: rgba(113, 113, 113);
-  }
-  &:nth-last-child(1) {
-    color: wheat;
-    width: 185%;
-    display: flex;
-    justify-content: flex-end;
-  }
 `;
 
 export const TableHeader = styled.th`
@@ -59,4 +50,24 @@ export const TableHeader = styled.th`
 export const TableData = styled.td`
   font-size: larger;
   font-weight: bolder;
+  width: 40%;
 `;
+
+export const Input = styled.input`
+  background: transparent;
+  color: white;
+  font-size: larger;
+  font-weight: bolder;
+  border-bottom: 1px white thin;
+  width: inherit;
+  ::placeholder,
+  ::-webkit-input-placeholder {
+    color: white;
+    opacity: 0.6;
+  }
+`;
+
+/* 
+&:nth-child(even) {
+  background-color: rgba(113, 113, 113);
+} */

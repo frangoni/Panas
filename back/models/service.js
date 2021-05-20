@@ -1,20 +1,13 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 const { Schema, Types } = mongoose;
 
 const serviceSchema = new Schema({
   producto: {
     type: Types.ObjectId,
-    ref: "Product",
+    ref: 'Product',
   },
   precio: {
     type: Number,
-  },
-  horaDeEntrada: {
-    type: Date,
-    default: Date.now,
-  },
-  horaEstimada: {
-    type: Date,
   },
   estado: {
     type: String,
@@ -28,7 +21,10 @@ const serviceSchema = new Schema({
   },
   cliente: {
     type: Types.ObjectId,
-    ref: "Client",
+    ref: 'Client',
+  },
+  horaEstimada: {
+    type: Date,
   },
   checkin: {
     type: Date,
@@ -48,5 +44,5 @@ const serviceSchema = new Schema({
   },
 });
 
-const Service = mongoose.model("Service", serviceSchema);
+const Service = mongoose.model('Service', serviceSchema);
 module.exports = Service;

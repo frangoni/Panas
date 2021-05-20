@@ -5,7 +5,7 @@ import { useSnackbar } from "notistack";
 import { useDispatch, useSelector } from "react-redux";
 import { createService } from "../../store/reducer/service";
 import { findClient } from "../../store/reducer/client";
-import { fecthProducts } from "../../store/reducer/product";
+import { fetchProducts } from "../../store/reducer/product";
 import { TransitionDiv } from "../components/styledcomponents";
 
 let initialRender = true;
@@ -80,7 +80,7 @@ const CheckinContainer = () => {
   }, [client]);
 
   useEffect(() => {
-    dispatch(fecthProducts());
+    dispatch(fetchProducts());
   }, []);
 
   //HANDLERS
@@ -106,12 +106,9 @@ const CheckinContainer = () => {
     if (!telefono.length) error = { ...error, telefono: "Ingresar telefono" };
     if (!email.length || !/.+\@.+\..+/.test(email)) error = { ...error, email: "Ingresar email correctamente" };
     if (!producto.length) error = { ...error, producto: "Ingresar producto" };
-    console.log("producto :", producto);
-    //setPrecio
     let errorArray = Object.values(error);
     let client = { patente, marca, modelo, nombre, telefono, email };
     let service = { producto, precio, estado, observaciones };
-    console.log("service :", service);
     if (!errorArray.length) {
       dispatch(createService({ service, client }));
     } else {
