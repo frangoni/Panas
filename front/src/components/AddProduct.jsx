@@ -18,7 +18,6 @@ const AdminProducts = ({ handleSubmit, setNombre, setPrecio, border, nombre, pre
           value={nombre}
           required
           label="Nombre"
-          autoFocus
           onChange={({ target: { value } }) => setNombre(value)}
         />
         <TextField

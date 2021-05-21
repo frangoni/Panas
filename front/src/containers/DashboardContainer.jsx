@@ -75,7 +75,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Panel() {
+export default function DashboardContainer() {
   const classes = useStyles();
   const [open, setOpen] = useState(true);
   const [items, setItems] = useState(1);

@@ -1,30 +1,19 @@
-const User = require("../models/User");
-require("../db/db");
+const User = require('../models/User');
+require('../db/db');
 
-const Pili = {
-  nombre: "Pili",
-  apellido:"Fernandez",
-  email:"sovieticaindumentaria@gmail.com",
-  direccion: "Lerma 581, Villa Crespo",
-  clave: "sovietica",
-  telefono:1134516914,
-  rol:"admin"
+const Dario = {
+  nombre: 'admin',
+  clave: 'admin',
+  rol: 'admin',
 };
 
-
-const PiliAdmin = {
-  nombre: "Pili",
-  apellido:"Fernandez",
-  email:"pf@pf.com",
-  direccion: "Lerma 581, Villa Crespo",
-  clave: "sovietica",
-  telefono:1134516914,
-  rol:"admin"
+const Checkin = {
+  nombre: 'checkin',
+  clave: 'checkin',
+  rol: 'checkin',
 };
 
-
-
-User.insertMany([Pili, PiliAdmin]).then(() => {
-  console.log("------- corrio el seed User ------");
+User.create([Dario, Checkin]).then(() => {
+  console.log('------- corrio el seed User ------');
   process.exit();
 });

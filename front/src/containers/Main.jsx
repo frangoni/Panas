@@ -1,15 +1,29 @@
-import React from "react";
-import { Route, Redirect, Switch } from "react-router-dom";
-import Checkin from "./CheckinContainer";
-import Dashboard from "./DashboardContainer";
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Route, Redirect, Switch } from 'react-router-dom';
+import { fetchMe } from '../../store/reducer/user';
+import Logout from '../components/Logout';
+import notAuthorized from '../components/notAuthorized';
+import Checkin from './CheckinContainer';
+import Dashboard from './DashboardContainer';
+import Login from './LoginContainer';
 
 export default function Main() {
-  return (
-    <Switch>
-      <Route exact path="/checkin" component={Checkin} />
-      <Route exact path="/admin" component={Dashboard} />
+  const { user } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchMe());
+  }, []);
 
-      <Redirect from="/*" to="/" />
-    </Switch>
+  return (
+    <>
+      <Switch>
+        <Route exact path='/login' render={({ history }) => <Login history={history} />} />
+        <Route exact path='/checkin' component={user && user.rol == 'checkin' ? Checkin : notAuthorized} />
+        <Route exact path='/admin' component={user && user.rol == 'admin' ? Dashboard : notAuthorized} />
+        <Redirect from='/*' to={user && user.nombre ? `/${user.rol}` : '/login'} />
+      </Switch>
+      <Logout />
+    </>
   );
 }
