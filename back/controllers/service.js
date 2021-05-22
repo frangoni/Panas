@@ -15,8 +15,24 @@ const createService = async (req, res) => {
 };
 
 const getServices = async (req, res) => {
+  const rol = req.user.rol;
+  const where = { [rol]: null };
+  const options = () => {
+    switch (rol) {
+      case 'tunel':
+        return where;
+      case 'interior':
+        return { ...where, tunel: { $ne: null } };
+      case 'secado':
+        return { ...where, interior: { $ne: null } };
+      case 'parking':
+        return { ...where, secado: { $ne: null } };
+      case 'admin':
+        return { ...where, parking: { $ne: null } };
+    }
+  };
   try {
-    const services = await Service.find().populate('cliente');
+    const services = await Service.find(options()).populate('cliente');
     res.status(201).send(services);
   } catch (error) {
     console.log('ERROR AL TRAER SERVICIOS', error);
@@ -25,13 +41,15 @@ const getServices = async (req, res) => {
 };
 
 const stationCheck = async (req, res) => {
-  const { station } = req.params;
-  const serviceId = req.body.id;
+  const station = req.user.rol;
+  const serviceId = req.params.id;
   const check = {};
   check[station] = Date.now();
   try {
-    const service = await Service.updateOne({ id: serviceId }, check);
-    res.status(301).send(service);
+    const service = await Service.findById(serviceId);
+    service[station] = Date.now();
+    service.save();
+    res.status(201).send(service);
   } catch (error) {
     console.log('ERROR EN CHECK DE ESTACIÓN', error);
     res.status(503).send(error);

@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const { io } = require('../io');
 const { Schema, Types } = mongoose;
 
 const serviceSchema = new Schema({
@@ -32,16 +33,26 @@ const serviceSchema = new Schema({
   },
   interior: {
     type: Date,
+    default: '',
   },
   tunel: {
     type: Date,
+    default: '',
   },
   secado: {
     type: Date,
+    default: '',
   },
   parking: {
     type: Date,
+    default: '',
   },
+});
+
+serviceSchema.post('save', function (service) {
+  console.log('service :', service);
+  console.log('UPDATE SOCKET EMMITED');
+  io.emit('station');
 });
 
 const Service = mongoose.model('Service', serviceSchema);

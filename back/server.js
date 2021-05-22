@@ -1,20 +1,29 @@
 require('./db/db');
 const express = require('express');
-const app = express();
+const { server, app } = require('./io');
 const volleyball = require('volleyball');
-const passport = require('passport');
-const session = require('express-session');
 const cookieParser = require('cookie-parser');
-const LocalStrategy = require('passport-local').Strategy;
+const passport = require('passport');
 const routes = require('./routes/index');
 const User = require('./models/user');
+const LocalStrategy = require('passport-local').Strategy;
+const session = require('express-session');
 
 app.use(volleyball);
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
+app.use(express.static('public'));
+
+//ERROR MIDDLEWARE
+app.use((err, req, res, next) => {
+  res.sendStatus(404).send(err);
+});
+
+// PASSPORT
 app.use(session({ secret: 'panas' }));
 app.use(passport.initialize());
 app.use(passport.session());
-
-// PASSPORT LOCALSTRATEGY
 passport.use(
   'local',
   new LocalStrategy(
@@ -49,18 +58,10 @@ passport.deserializeUser(function (_id, done) {
     })
     .catch(done);
 });
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(cookieParser());
-app.use(express.static('public'));
+
 app.use('/api', routes);
 app.get('/*', (req, res) => {
   res.sendFile(__dirname + '/public/' + 'index.html');
 });
 
-//ERROR MIDDLEWARE
-app.use((err, req, res, next) => {
-  res.sendStatus(404).send(err);
-});
-
-app.listen(3000, () => console.log(`Try out http://localhost:3000/`));
+server.listen(3000, () => console.log(`Try out http://localhost:3000/`));

@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon server.js",
-    "seed": "node ./seed/seedAdmin.js"
+    "seed": "node ./seed/seedUser.js"
   },
   "keywords": [],
   "author": "",
@@ -19,6 +19,7 @@
     "mongoose": "^5.12.0",
     "passport": "^0.4.1",
     "passport-local": "^1.0.0",
+    "socket.io": "^4.1.2",
     "volleyball": "^1.5.1"
   }
 }

@@ -15,6 +15,13 @@ export const fetchServices = createAsyncThunk('FETCH_SERVICES', () => {
     .catch((e) => console.log(e));
 });
 
+export const updateService = createAsyncThunk('UPDATE_SERVICE', (id) => {
+  return axios
+    .put(`/api/service/${id}`)
+    .then(({ data }) => data)
+    .catch((e) => console.log('ERROR', e));
+});
+
 const initialState = {
   services: [],
   created: '',
@@ -32,6 +39,9 @@ const service = createReducer(initialState, {
   [fetchServices.fulfilled]: (state, action) => {
     return { ...state, services: action.payload };
   },
+  /*   [updateService.fulfilled]: (state, action) => {
+    return { ...state, services: state.services.filter((service) => service._id != action.payload._id) };
+  }, */
 });
 
 export default service;
