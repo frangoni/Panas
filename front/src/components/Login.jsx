@@ -22,11 +22,11 @@ export default function Login({ border, handleLogin, handleVisible, visible, nom
   return (
     <GlassCard style={{ border: `thin solid ${border}` }}>
       <span id='login'>
+        <img src={logo} id='logo' alt='' />
+        <h2 className='title'>LOGIN</h2>
         <Avatar>
           <LockOutlinedIcon />
         </Avatar>
-        <img src={logo} id='logo' alt='' />
-        <h2 className='title'>LOGIN</h2>
       </span>
       <div id='form'>
         <TextField
@@ -41,7 +41,7 @@ export default function Login({ border, handleLogin, handleVisible, visible, nom
           autoFocus
         />
         <TextField
-          InputProps={{ style: { color: colorInput } /*  endAdornment: button()  */ }}
+          InputProps={{ style: { color: colorInput }, endAdornment: button() }}
           InputLabelProps={{ style: { color: colorLabel } }}
           label='Clave'
           variant='outlined'

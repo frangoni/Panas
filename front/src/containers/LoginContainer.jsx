@@ -42,10 +42,10 @@ export default function LoginContainer({ history }) {
   const handleVisible = () => {
     setVisible((v) => !v);
   };
+
   const handleLogin = () => {
     dispatch(login({ nombre, clave }));
   };
-
   return (
     <TransitionDiv>
       <Login

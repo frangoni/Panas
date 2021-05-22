@@ -14,6 +14,16 @@ const createService = async (req, res) => {
   }
 };
 
+const getServices = async (req, res) => {
+  try {
+    const services = await Service.find().populate('cliente');
+    res.status(201).send(services);
+  } catch (error) {
+    console.log('ERROR AL TRAER SERVICIOS', error);
+    res.status(503).send(error);
+  }
+};
+
 const stationCheck = async (req, res) => {
   const { station } = req.params;
   const serviceId = req.body.id;
@@ -28,4 +38,4 @@ const stationCheck = async (req, res) => {
   }
 };
 
-module.exports = { createService, stationCheck };
+module.exports = { createService, stationCheck, getServices };

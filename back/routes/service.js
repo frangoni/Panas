@@ -1,10 +1,11 @@
 //                                /api/service
 
-const express = require("express");
+const express = require('express');
 const router = express.Router();
-const { createService, stationCheck } = require("../controllers/service");
+const { createService, stationCheck, getServices } = require('../controllers/service');
 
-router.post("/", createService);
-router.put("/:id", stationCheck);
+router.get('/', getServices);
+router.post('/', createService);
+router.put('/:id', stationCheck);
 
 module.exports = router;

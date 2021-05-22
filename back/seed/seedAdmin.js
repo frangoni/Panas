@@ -13,7 +13,28 @@ const Checkin = {
   rol: 'checkin',
 };
 
-User.create([Dario, Checkin]).then(() => {
+const Interior = {
+  nombre: 'interior',
+  clave: 'interior',
+  rol: 'interior',
+};
+const Tunel = {
+  nombre: 'tunel',
+  clave: 'tunel',
+  rol: 'tunel',
+};
+const Secado = {
+  nombre: 'secado',
+  clave: 'secado',
+  rol: 'secado',
+};
+const Parking = {
+  nombre: 'parking',
+  clave: 'parking',
+  rol: 'parking',
+};
+
+User.create([Dario, Checkin, Interior, Tunel, Secado, Parking]).then(() => {
   console.log('------- corrio el seed User ------');
   process.exit();
 });
