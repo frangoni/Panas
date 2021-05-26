@@ -1,4 +1,5 @@
 require('./db/db');
+require('dotenv').config();
 const express = require('express');
 const { server, app } = require('./io');
 const volleyball = require('volleyball');
@@ -9,6 +10,7 @@ const User = require('./models/user');
 const LocalStrategy = require('passport-local').Strategy;
 const session = require('express-session');
 
+const PORT = process.env.PORT || 3001;
 app.use(volleyball);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -64,4 +66,4 @@ app.get('/*', (req, res) => {
   res.sendFile(__dirname + '/public/' + 'index.html');
 });
 
-server.listen(3000, () => console.log(`Try out http://localhost:3000/`));
+server.listen(PORT, () => console.log(`Try out http://localhost:${PORT}/`));

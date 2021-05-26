@@ -48,7 +48,6 @@ const CheckinContainer = () => {
     setEmail('');
     setEstado('');
     setObservaciones('');
-    setProducto('');
   };
 
   //USE EFFECT

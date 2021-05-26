@@ -50,8 +50,6 @@ const serviceSchema = new Schema({
 });
 
 serviceSchema.post('save', function (service) {
-  console.log('service :', service);
-  console.log('UPDATE SOCKET EMMITED');
   io.emit('station');
 });
 

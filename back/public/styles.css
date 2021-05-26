@@ -84,6 +84,16 @@ img {
   margin: 5%;
 }
 
+#modal {
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: space-around;
+  align-items: center;
+  width: 20vw;
+  height: 20vh;
+  padding: 15px;
+}
+
 #nextStation {
   transform: scale(2);
 }
@@ -91,5 +101,14 @@ img {
 @media (max-width: 1200px) {
   #form {
     width: 95vw;
+  }
+  #modal {
+    width: 95vw;
+  }
+}
+
+@media (max-width: 1000px) {
+  #modal {
+    width: 80vw;
   }
 }

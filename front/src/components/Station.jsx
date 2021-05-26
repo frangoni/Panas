@@ -13,7 +13,7 @@ export default function Station({ services, user, handleNext }) {
     <GlassCard>
       <div id='form'>
         <img src={logo} id='logo' alt='' />
-        <h2 className='title'>{user && user.rol.toUpperCase()}</h2>
+        <h2 className='title'>{user.rol && user.rol.toUpperCase()}</h2>
       </div>
 
       <List>

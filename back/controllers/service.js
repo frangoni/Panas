@@ -1,5 +1,7 @@
 const Service = require('../models/service');
 const Client = require('../models/client');
+const sendEmail = require('../email');
+const { EMAIL } = process.env;
 
 const createService = async (req, res) => {
   const { client, service } = req.body;
@@ -46,9 +48,13 @@ const stationCheck = async (req, res) => {
   const check = {};
   check[station] = Date.now();
   try {
-    const service = await Service.findById(serviceId);
+    const service = await Service.findById(serviceId).populate('cliente');
     service[station] = Date.now();
     service.save();
+    const { email, nombre } = service.cliente;
+    const whom = nombre.substr(0, nombre.indexOf(' '));
+    station == 'parking' ? sendEmail(email, whom) : null;
+
     res.status(201).send(service);
   } catch (error) {
     console.log('ERROR EN CHECK DE ESTACIÓN', error);
