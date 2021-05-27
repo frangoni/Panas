@@ -8,8 +8,6 @@ import { findClient } from '../../store/reducer/client';
 import { fetchProducts } from '../../store/reducer/product';
 import { TransitionDiv } from '../components/styledcomponents';
 
-let initialRender = true;
-
 const CheckinContainer = () => {
   //STATE
   const [patente, setPatente] = useState('');
@@ -29,9 +27,9 @@ const CheckinContainer = () => {
   const { client } = useSelector((state) => state.client);
   const { products } = useSelector(({ product }) => product);
   const dispatch = useDispatch();
-
   const notification = messageHandler(useSnackbar());
 
+  //HANDLERS
   const handleBorder = (color) => {
     setBorder(color);
     setTimeout(() => {
@@ -50,20 +48,29 @@ const CheckinContainer = () => {
     setObservaciones('');
   };
 
+  const handlePatente = ({ target: { value } }) => {
+    const valor = value.toUpperCase().trim(' ').slice(0, 7);
+    setPatente(valor);
+  };
+
+  const handleProduct = (value) => {
+    const product = products[value];
+    const productID = product._id;
+    const precio = product.precio;
+    setProducto(productID);
+    setPrecio(precio);
+  };
+
   //USE EFFECT
   useEffect(() => {
-    if (initialRender) {
-      initialRender = false;
-    } else {
-      if (created == 'yes') {
-        handleBorder('lime');
-        emptyForm();
-        notification.success('Auto ingresado!');
-        setDisabled(false);
-      } else if (created == 'no') {
-        handleBorder('red');
-        notification.error('No se pudo crear, corrobore los datos ingresados');
-      }
+    if (created == 'yes') {
+      handleBorder('lime');
+      emptyForm();
+      notification.success('Auto ingresado!');
+      setDisabled(false);
+    } else if (created == 'no') {
+      handleBorder('red');
+      notification.error('No se pudo crear, corrobore los datos ingresados');
     }
   }, [created]);
 
@@ -88,20 +95,6 @@ const CheckinContainer = () => {
   useEffect(() => {
     dispatch(fetchProducts());
   }, []);
-
-  //HANDLERS
-  const handlePatente = ({ target: { value } }) => {
-    const valor = value.toUpperCase().trim(' ').slice(0, 7);
-    setPatente(valor);
-  };
-
-  const handleProduct = (value) => {
-    const product = products[value];
-    const productID = product._id;
-    const precio = product.precio;
-    setProducto(productID);
-    setPrecio(precio);
-  };
 
   const handleSubmit = () => {
     let error = {};

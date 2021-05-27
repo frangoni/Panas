@@ -8,13 +8,12 @@ import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import logo from '../images/color.png';
 
-const colorInput = 'white';
-const colorLabel = 'wheat';
-
 export default function Login({ border, handleLogin, handleVisible, visible, nombre, setNombre, clave, setClave }) {
+  const colorInput = 'white';
+  const colorLabel = 'wheat';
   const button = () => {
     return (
-      <IconButton style={{ color: 'wheat', outline: 'none' }} onClick={handleVisible}>
+      <IconButton style={{ color: colorLabel, outline: 'none' }} onClick={handleVisible}>
         {visible ? <Visibility /> : <VisibilityOff />}
       </IconButton>
     );
@@ -22,7 +21,7 @@ export default function Login({ border, handleLogin, handleVisible, visible, nom
   return (
     <GlassCard style={{ border: `thin solid ${border}` }}>
       <span id='login'>
-        <img src={logo} id='logo' alt='' />
+        <img src={logo} id='logo' alt='logo' />
         <h2 className='title'>LOGIN</h2>
         <Avatar>
           <LockOutlinedIcon />

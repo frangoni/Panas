@@ -107,7 +107,7 @@ const Checkin = ({ datos, setters, handleSubmit, border, handlePatente, disabled
           onChange={({ target: { value } }) => setObservaciones(value)}
         />
         <NativeSelect inputProps={{ style: { color: colorInput } }} onChange={({ target: { value } }) => handleProduct(value)} label='Productos'>
-          <option selected value='' disabled>
+          <option selected disabled>
             ELEGIR PRODUCTO
           </option>
           {products &&
@@ -117,7 +117,7 @@ const Checkin = ({ datos, setters, handleSubmit, border, handlePatente, disabled
               </option>
             ))}
         </NativeSelect>
-        <Button id='btn' size='large' style={{ border: `thin solid ${border}` }} onClick={handleSubmit}>
+        <Button id='btn' fontSize='large' style={{ border: `thin solid ${border}` }} onClick={handleSubmit}>
           CHECKIN
         </Button>
       </div>

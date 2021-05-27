@@ -64,7 +64,7 @@ img {
 
 #logout {
   position: fixed;
-  right: 1vw;
+  right: 2vw;
   bottom: 2vh;
   background-color: rgba(81, 79, 76);
   color: wheat;
@@ -73,6 +73,7 @@ img {
   box-shadow: -5px -2px 29px -5px rgba(0, 0, 0, 0.58);
   outline: none;
 }
+
 #logout:hover {
   transform: scale(1.5);
 }

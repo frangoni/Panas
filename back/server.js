@@ -23,7 +23,7 @@ app.use((err, req, res, next) => {
 });
 
 // PASSPORT
-app.use(session({ secret: 'panas' }));
+app.use(session({ secret: 'panas', saveUninitialized: false, resave: false }));
 app.use(passport.initialize());
 app.use(passport.session());
 passport.use(

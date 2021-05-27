@@ -10,7 +10,7 @@ const ConfirmationModal = ({ setHidden, handleNext }) => {
       <div id='modal'>
         <h2 style={{ color: 'wheat' }}>¿Estación terminada?</h2>
         <span>
-          <IconButton size='large'>
+          <IconButton>
             <CheckCircleIcon style={{ color: 'wheat' }} fontSize='large' onClick={handleNext} />
           </IconButton>
           <IconButton>

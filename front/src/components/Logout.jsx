@@ -25,7 +25,7 @@ const Logout = () => {
     return (
       <>
         <IconButton id='logout' onClick={() => setHidden(false)}>
-          <PowerSettingsNewIcon fontSize='large' />
+          <PowerSettingsNewIcon /*  fontSize='large' */ />
         </IconButton>
         {hidden ? null : <LogoutModal setHidden={setHidden} handleLogout={handleLogout} />}
       </>

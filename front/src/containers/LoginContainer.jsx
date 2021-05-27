@@ -14,31 +14,18 @@ export default function LoginContainer({ history }) {
   const [clave, setClave] = useState('');
   const [border, setBorder] = useState('transparent');
   const { didLogin } = useSelector((state) => state.user);
+
   const emptyForm = () => {
     setNombre('');
     setClave('');
   };
 
-  useEffect(() => {
-    if (didLogin == 'yes') {
-      setBorder('lime');
-      setTimeout(() => {
-        setBorder('');
-      }, 2500);
-      notification.success('Usuario logueado!');
-      setTimeout(() => {
-        history.push('/');
-      }, 1500);
-    } else if (didLogin == 'no') {
-      setBorder('red');
-      setTimeout(() => {
-        setBorder('');
-      }, 2500);
-      notification.error('No se pudo loguear, corrobore los datos ingresados');
-      emptyForm();
-    }
-  }, [didLogin]);
-
+  const handleBorder = (color) => {
+    setBorder(color);
+    setTimeout(() => {
+      setBorder('');
+    }, 2500);
+  };
   const handleVisible = () => {
     setVisible((v) => !v);
   };
@@ -46,6 +33,21 @@ export default function LoginContainer({ history }) {
   const handleLogin = () => {
     dispatch(login({ nombre, clave }));
   };
+
+  useEffect(() => {
+    if (didLogin == 'yes') {
+      setBorder('lime');
+      notification.success('Usuario logueado!');
+      setTimeout(() => {
+        history.push('/');
+      }, 1500);
+    } else if (didLogin == 'no') {
+      handleBorder('red');
+      notification.error('No se pudo loguear, corrobore los datos ingresados');
+      emptyForm();
+    }
+  }, [didLogin]);
+
   return (
     <TransitionDiv>
       <Login

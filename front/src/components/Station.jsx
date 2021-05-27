@@ -12,7 +12,7 @@ export default function Station({ services, user, setId, setHidden }) {
   return (
     <GlassCard>
       <div id='form'>
-        <img src={logo} id='logo' alt='' />
+        <img src={logo} id='logo' alt='logo' />
         <h2 className='title'>{user.rol && user.rol.toUpperCase()}</h2>
       </div>
       <List>
@@ -33,11 +33,11 @@ export default function Station({ services, user, setId, setHidden }) {
                     secondaryTypographyProps={{ style: { color: secondColor } }}
                   />
                   <IconButton
-                    id='nextStation'
                     onClick={() => {
                       setHidden(false);
                       setId(service._id);
                     }}
+                    id='nextStation'
                   >
                     <DoubleArrowIcon style={{ color: firstColor }} fontSize='large' />
                   </IconButton>

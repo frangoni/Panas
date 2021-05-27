@@ -10,11 +10,11 @@ const LogoutModal = ({ setHidden, handleLogout }) => {
       <div id='modal'>
         <h2 style={{ color: 'wheat' }}>¿Cerrar sesión?</h2>
         <span>
-          <IconButton size='large'>
-            <CheckCircleIcon style={{ color: 'wheat' }} fontSize='large' onClick={handleLogout} />
+          <IconButton fontSize='large' onClick={handleLogout}>
+            <CheckCircleIcon style={{ color: 'wheat' }} fontSize='large' />
           </IconButton>
-          <IconButton>
-            <CancelIcon fontSize='large' onClick={() => setHidden(true)} />
+          <IconButton onClick={() => setHidden(true)}>
+            <CancelIcon fontSize='large' />
           </IconButton>
         </span>
       </div>

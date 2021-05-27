@@ -16,7 +16,8 @@ export default function Main() {
 
   useEffect(() => {
     dispatch(fetchMe());
-    user.rol ? null : history.push('/login');
+    /*     user && user.rol ? null : history.push('/login');
+     */
   }, []);
 
   return (
