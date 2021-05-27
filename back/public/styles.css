@@ -89,9 +89,21 @@ img {
   flex-flow: column wrap;
   justify-content: space-around;
   align-items: center;
-  width: 20vw;
-  height: 20vh;
   padding: 15px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 40vh;
+  width: 20vw;
+  background-color: rgba(100, 100, 100, 0.95);
+  border: rgb(56, 40, 28) thick solid;
+  border-radius: 60px;
+}
+
+#modal button {
+  transform: scale(1.5);
+  margin: 0 10px;
 }
 
 #nextStation {
@@ -103,12 +115,7 @@ img {
     width: 95vw;
   }
   #modal {
-    width: 95vw;
-  }
-}
-
-@media (max-width: 1000px) {
-  #modal {
-    width: 80vw;
+    width: 90vw;
+    height: 40vh;
   }
 }

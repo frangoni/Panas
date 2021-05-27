@@ -7,14 +7,14 @@ export const GlassCard = styled.div`
   margin: 10vh auto;
   background-color: rgba(81, 79, 76);
   @media (max-width: 1200px) {
-    margin: 1vh auto;
+    margin: 10vh auto;
   }
 `;
 
 const dash = keyframes`
   0% {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(100px);
   }
   100% {
     opacity: 1;
@@ -22,7 +22,19 @@ const dash = keyframes`
   }`;
 
 export const TransitionDiv = styled.div`
-  animation: ${dash} 0.5s;
+  animation: ${dash} 0.8s;
+`;
+
+const ease = keyframes`
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }`;
+
+export const TransitionModal = styled.div`
+  animation: ${ease} 0.5s;
 `;
 
 export const Table = styled.table`

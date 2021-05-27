@@ -3,9 +3,10 @@
 const express = require('express');
 const router = express.Router();
 const { createService, stationCheck, getServices } = require('../controllers/service');
+const { isUser } = require('../middleware/isUser');
 
-router.get('/', getServices);
-router.post('/', createService);
-router.put('/:id', stationCheck);
+router.get('/', isUser, getServices);
+router.post('/', isUser, createService);
+router.put('/:id', isUser, stationCheck);
 
 module.exports = router;

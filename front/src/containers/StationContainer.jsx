@@ -11,18 +11,16 @@ const StationContainer = () => {
   const dispatch = useDispatch();
   const { services } = useSelector((state) => state.service);
   const { user } = useSelector((state) => state.user);
-  const [hidden, setHidden] = useState(false);
+  const [hidden, setHidden] = useState(true);
+  const [id, setId] = useState('');
   const notification = messageHandler(useSnackbar());
   const socket = io(window.location.origin);
 
-  const handleNext = (id) => {
+  const handleNext = () => {
     dispatch(updateService(id));
+    setHidden(true);
     const message = user.rol == 'parking' ? 'Servicio finalizado' : 'Auto enviado a próxima estación';
     notification.success(message);
-  };
-
-  const handleClose = () => {
-    setHidden(true);
   };
 
   useEffect(() => {
@@ -30,12 +28,15 @@ const StationContainer = () => {
     socket.on('station', () => {
       dispatch(fetchServices());
     });
+    return () => {
+      socket.disconnect();
+    };
   }, []);
 
   return (
     <>
-      <Station services={services} user={user} handleNext={handleNext} />
-      <ConfirmationModal hidden={hidden} handleClose={handleClose} />
+      <Station services={services} user={user} setId={setId} setHidden={setHidden} />
+      {hidden ? null : <ConfirmationModal setHidden={setHidden} handleNext={handleNext} />}
     </>
   );
 };

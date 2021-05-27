@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Route, Redirect, Switch } from 'react-router-dom';
+import { Route, Redirect, Switch, useHistory } from 'react-router-dom';
 import { fetchMe } from '../../store/reducer/user';
 import Logout from '../components/Logout';
 import notAuthorized from '../components/notAuthorized';
@@ -12,8 +12,11 @@ import Station from './StationContainer';
 export default function Main() {
   const { user } = useSelector((state) => state.user);
   const dispatch = useDispatch();
+  const history = useHistory();
+
   useEffect(() => {
     dispatch(fetchMe());
+    user.rol ? null : history.push('/login');
   }, []);
 
   return (
