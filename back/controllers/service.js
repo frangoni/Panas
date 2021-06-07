@@ -1,12 +1,11 @@
 const Service = require('../models/service');
 const Client = require('../models/client');
 const sendEmail = require('../email');
-const { EMAIL } = process.env;
 
 const createService = async (req, res) => {
   const { client, service } = req.body;
   try {
-    const clientDB = await Client.findOne({ patente: client.patente });
+    let clientDB = await Client.findOne({ patente: client.patente });
     if (!clientDB) clientDB = await Client.create(client);
     const serviceDB = await Service.create({ ...service, cliente: clientDB });
     res.status(201).send(serviceDB);
@@ -29,8 +28,6 @@ const getServices = async (req, res) => {
         return { ...where, interior: { $ne: null } };
       case 'parking':
         return { ...where, secado: { $ne: null } };
-      case 'admin':
-        return { ...where, parking: { $ne: null } };
     }
   };
   try {
@@ -62,4 +59,18 @@ const stationCheck = async (req, res) => {
   }
 };
 
-module.exports = { createService, stationCheck, getServices };
+const getMetrics = async (req, res) => {
+  const { checkinDate, parkingDate } = req.query;
+  console.log('parkingDate :', parkingDate);
+  console.log('checkinDate :', checkinDate);
+  const metrics = {};
+  try {
+    const services = await Service.find({ where: { parking: { $lte: parkingDate }, checkin: { $gte: checkinDate } } });
+    res.status(200).send(services);
+  } catch (error) {
+    console.log('ERROR AL BUSCAR METRICAS :', error);
+    res.status(503).send(error);
+  }
+};
+
+module.exports = { createService, stationCheck, getServices, getMetrics };

@@ -3,6 +3,7 @@ import service from './reducer/service';
 import client from './reducer/client';
 import product from './reducer/product';
 import user from './reducer/user';
+import metrics from './reducer/metrics';
 
 const store = configureStore({
   reducer: {
@@ -10,6 +11,7 @@ const store = configureStore({
     client,
     product,
     user,
+    metrics,
   },
 });
 

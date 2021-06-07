@@ -82,3 +82,17 @@ export const Input = styled.input`
 &:nth-child(even) {
   background-color: rgba(113, 113, 113);
 } */
+
+export const Picker = styled.div`
+  border-radius: 0 0 60px 60px;
+  box-shadow: inset -10px -10px 15px rgb(40 44 52 / 70%), inset 10px 10px 15px rgb(255 255 255 / 17%);
+  background-color: rgba(81, 79, 76);
+  position: fixed;
+  display: flex;
+  padding: 0 2% 0.5%;
+  top: 0;
+  animation: ${ease} 0.5s;
+  & > * {
+    margin: 10% 3% 3%;
+  }
+`;

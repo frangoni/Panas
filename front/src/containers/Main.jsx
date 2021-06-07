@@ -25,7 +25,7 @@ export default function Main() {
       <Switch>
         <Route exact path='/login' render={({ history }) => <Login history={history} />} />
         <Route exact path='/checkin' component=/*{Checkin} */ {user && user.rol == 'checkin' ? Checkin : notAuthorized} />
-        <Route exact path='/admin' component=/* {Dashboard}  */ {user && user.rol == 'admin' ? Dashboard : notAuthorized} />
+        <Route exact path='/admin' component={Dashboard} /*   {user && user.rol == 'admin' ? Dashboard : notAuthorized}*/ />
         <Route exact path='/:station' component=/*{Station} */ {user && user.rol != ['checkin', 'admin'] ? Station : notAuthorized} />
         <Redirect from='/*' to={user && user.nombre ? `/${user.rol}` : '/login'} />
       </Switch>
