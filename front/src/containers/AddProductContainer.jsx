@@ -3,7 +3,7 @@ import AddProducts from '../components/AddProduct';
 import { createProduct, cleanState } from '../../store/reducer/product';
 import { useDispatch, useSelector } from 'react-redux';
 import { useSnackbar } from 'notistack';
-import messageHandler from '../../utils/notifications';
+import messageHandler from '../../utils/notification';
 
 const AddProductsContainer = () => {
   const [nombre, setNombre] = useState('');

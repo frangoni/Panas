@@ -1,15 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import AllProducts from '../components/AllProducts';
-import { editProduct, fetchProducts, deleteProduct } from '../../store/reducer/product';
-import { useDispatch, useSelector } from 'react-redux';
-import { useSnackbar } from 'notistack';
-import messageHandler from '../../utils/notifications';
-let initialRender = true;
+import React, { useState, useEffect } from "react";
+import AllProducts from "../components/AllProducts";
+import { editProduct, fetchProducts, deleteProduct } from "../../store/reducer/product";
+import { useDispatch, useSelector } from "react-redux";
+import { useSnackbar } from "notistack";
+import messageHandler from "../../utils/notification";
 
 const AllProductsContainer = () => {
-  const [nombre, setNombre] = useState('');
-  const [precio, setPrecio] = useState('');
-  const [editable, setEditable] = useState('');
+  const [nombre, setNombre] = useState("");
+  const [precio, setPrecio] = useState("");
+  const [editable, setEditable] = useState("");
   const dispatch = useDispatch();
   const notification = messageHandler(useSnackbar());
   const { products } = useSelector(({ product }) => product);
@@ -19,20 +18,24 @@ const AllProductsContainer = () => {
   }, []);
 
   const handleEditable = (id) => {
-    id ? setEditable(id) : setEditable('');
-    setNombre('');
-    setPrecio('');
+    id ? setEditable(id) : setEditable("");
+    setNombre("");
+    setPrecio("");
   };
 
   const handleEdit = (id) => {
     nombre.length || precio
-      ? (dispatch(editProduct({ id, nombre, precio })), setNombre(''), setPrecio(''), setEditable(''), notification.success('Producto editado'))
-      : notification.error('Completar datos');
+      ? (dispatch(editProduct({ id, nombre, precio })),
+        setNombre(""),
+        setPrecio(""),
+        setEditable(""),
+        notification.success("Producto editado"))
+      : notification.error("Completar datos");
   };
 
   const handleDelete = (id) => {
     dispatch(deleteProduct(id));
-    notification.success('Producto eliminado')
+    notification.success("Producto eliminado");
   };
 
   return (

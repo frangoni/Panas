@@ -1,10 +1,10 @@
-import 'date-fns';
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { getMetrics } from '../../../back/controllers/service';
-import DatePicker from '../components/DatePicker';
-import Metrics from '../components/Metrics';
-import { TransitionDiv } from '../components/styledcomponents';
+import "date-fns";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import DatePicker from "../components/DatePicker";
+import Metrics from "../components/Metrics";
+import { TransitionDiv } from "../components/styledcomponents";
+import { findMetrics } from "../../store/reducer/metrics";
 
 const MetricsContainer = () => {
   const [checkinDate, setCheckinDate] = useState(new Date());
@@ -13,11 +13,16 @@ const MetricsContainer = () => {
   const { metrics } = useSelector((state) => state.metrics);
 
   useEffect(() => {
-    dispatch(getMetrics(checkinDate, parkingDate));
+    dispatch(findMetrics(checkinDate, parkingDate));
   }, []);
   return (
     <>
-      <DatePicker checkinDate={checkinDate} parkingDate={parkingDate} setParkingDate={setParkingDate} setCheckinDate={setCheckinDate} />
+      <DatePicker
+        checkinDate={checkinDate}
+        parkingDate={parkingDate}
+        setParkingDate={setParkingDate}
+        setCheckinDate={setCheckinDate}
+      />
       <TransitionDiv>
         <Metrics />
       </TransitionDiv>

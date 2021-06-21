@@ -6,9 +6,8 @@ yarn-debug.log*
 yarn-error.log*
 
 #bundle
-/back/public/bundle.js
-/back/public/bundle.js.map
-
+/back/public
+.cache
 
 # Runtime data
 pids

@@ -2,29 +2,29 @@ const messagesHandler = ({ enqueueSnackbar }) => {
   const notification = {
     error: (msg) =>
       enqueueSnackbar(`${msg}`, {
-        variant: 'error',
+        variant: "error",
         preventDuplicate: true,
-        anchorOrigin: { vertical: 'top', horizontal: 'center' },
+        anchorOrigin: { vertical: "top", horizontal: "center" },
         autoHideDuration: 2000,
-        containerRoot: { position: 'fixed' },
+        containerRoot: { position: "fixed" },
       }),
 
     success: (msg) =>
       enqueueSnackbar(`${msg}`, {
-        variant: 'success',
+        variant: "success",
         preventDuplicate: true,
-        anchorOrigin: { vertical: 'top', horizontal: 'center' },
+        anchorOrigin: { vertical: "top", horizontal: "center" },
         autoHideDuration: 2000,
-        containerroot: { position: 'fixed' },
+        containerroot: { position: "fixed" },
       }),
 
     info: (msg) =>
       enqueueSnackbar(`${msg}`, {
-        variant: 'info',
+        variant: "info",
         preventDuplicate: true,
-        anchorOrigin: { vertical: 'top', horizontal: 'center' },
+        anchorOrigin: { vertical: "top", horizontal: "center" },
         autoHideDuration: 2000,
-        containerroot: { position: 'fixed' },
+        containerroot: { position: "fixed" },
       }),
   };
 
