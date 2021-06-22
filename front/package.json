@@ -1,9 +1,6 @@
 {
   "name": "front",
   "version": "1.0.0",
-  "engines": {
-    "node": "10"
-  },
   "scripts": {
     "prestart": "rimraf ../back/public",
     "start": "parcel serve ./src/index.html --dist-dir  ../back/public ",
@@ -14,7 +11,8 @@
   "devDependencies": {
     "@parcel/config-default": "^2.0.0-beta.3.1",
     "@parcel/transformer-raw": "^2.0.0-beta.3.1",
-    "parcel": "^2.0.0-beta.3.1"
+    "parcel": "^2.0.0-beta.3.1",
+    "rimraf": "^3.0.2"
   },
   "dependencies": {
     "@date-io/date-fns": "^1.3.13",
@@ -34,7 +32,6 @@
     "redux": "^4.0.5",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0",
-    "rimraf": "^3.0.2",
     "socket.io-client": "^4.1.2",
     "styled-components": "^5.2.3"
   }
