@@ -10,12 +10,15 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 const DatePicker = ({ checkinDate, parkingDate, setParkingDate, setCheckinDate }) => {
   const colorInput = 'white';
   const colorLabel = 'wheat';
-  const [icon, setIcon] = useState(<ExpandLessIcon fontSize='large' />);
+  const [icon, setIcon] = useState(<ExpandLessIcon fontSize='large'/>);
   const [opened, setOpened] = useState(true);
 
+  const handleDate = (date)=>{
+    return new Date(date.replace(/^(\d{1,2}\/)(\d{1,2}\/)(\d{4})$/, '$2$1$3')).getTime()
+  }
   const handleToggle = () => {
     setOpened((v) => !v);
-    opened ? setIcon(<ExpandMoreIcon fontSize='large' />) : setIcon(<ExpandLessIcon fontSize='large' />);
+    opened ? setIcon(<ExpandMoreIcon fontSize='large'/>) : setIcon(<ExpandLessIcon fontSize='large'/>);
   };
 
   return (
@@ -31,8 +34,8 @@ const DatePicker = ({ checkinDate, parkingDate, setParkingDate, setCheckinDate }
               format='dd/MM/yyyy'
               value={checkinDate}
               onChange={(e, v) => {
-                let date = v.replace(/^(\d{1,2}\/)(\d{1,2}\/)(\d{4})$/, '$2$1$3');
-                setCheckinDate(date);
+                let timestamp = handleDate(v)
+                setCheckinDate(timestamp);
               }}
               KeyboardButtonProps={{
                 'aria-label': 'change date',
@@ -50,8 +53,8 @@ const DatePicker = ({ checkinDate, parkingDate, setParkingDate, setCheckinDate }
               format='dd/MM/yyyy'
               value={parkingDate}
               onChange={(e, v) => {
-                let date = v.replace(/^(\d{1,2}\/)(\d{1,2}\/)(\d{4})$/, '$2$1$3');
-                setParkingDate(date);
+                let timestamp = handleDate(v)
+                setParkingDate(timestamp);
               }}
               KeyboardButtonProps={{
                 'aria-label': 'change date',

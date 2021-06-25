@@ -42,8 +42,6 @@ const getServices = async (req, res) => {
 const stationCheck = async (req, res) => {
   const station = req.user.rol;
   const serviceId = req.params.id;
-  const check = {};
-  check[station] = Date.now();
   try {
     const service = await Service.findById(serviceId).populate('cliente');
     service[station] = Date.now();
@@ -61,11 +59,10 @@ const stationCheck = async (req, res) => {
 
 const getMetrics = async (req, res) => {
   const { checkinDate, parkingDate } = req.query;
-  console.log('parkingDate :', parkingDate);
-  console.log('checkinDate :', checkinDate);
   const metrics = {};
   try {
-    const services = await Service.find({ where: { parking: { $lte: parkingDate }, checkin: { $gte: checkinDate } } });
+    const services = await Service.find({ where: { checkin: { $gte: +checkinDate }, parking: { $lte: +parkingDate } } });
+    console.log('services :', services);
     res.status(200).send(services);
   } catch (error) {
     console.log('ERROR AL BUSCAR METRICAS :', error);

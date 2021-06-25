@@ -25,26 +25,26 @@ const serviceSchema = new Schema({
     ref: 'Client',
   },
   horaEstimada: {
-    type: Date,
+    type: Number,
   },
   checkin: {
-    type: Date,
+    type: Number,
     default: Date.now(),
   },
   interior: {
-    type: Date,
+    type: Number,
     default: '',
   },
   tunel: {
-    type: Date,
+    type: Number,
     default: '',
   },
   secado: {
-    type: Date,
+    type: Number,
     default: '',
   },
   parking: {
-    type: Date,
+    type: Number,
     default: '',
   },
 });

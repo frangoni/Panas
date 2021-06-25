@@ -1,16 +1,15 @@
-import { createReducer, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
+import { createReducer, createAsyncThunk } from '@reduxjs/toolkit';
+import axios from 'axios';
 
-export const findMetrics = createAsyncThunk("FIND_METRICS", (checkinDate, parkingDate) => {
+export const findMetrics = createAsyncThunk('FIND_METRICS', (dates) => {
+  const { checkinDate, parkingDate } = dates;
   return axios
-    .get(`/api/service/metrics`)
+    .get(`/api/service/metrics?checkinDate=${checkinDate}&parkingDate=${parkingDate}`)
     .then((res) => {
       return res.data;
     })
-    .catch((e) => console.log("error", e));
+    .catch((e) => console.log('error', e));
 });
-
-/* ?checkinDate=${checkinDate}&parkingDate=${parkingDate} */
 
 const initialState = {
   metrics: [],

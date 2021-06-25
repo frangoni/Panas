@@ -7,14 +7,14 @@ import { TransitionDiv } from "../components/styledcomponents";
 import { findMetrics } from "../../store/reducer/metrics";
 
 const MetricsContainer = () => {
-  const [checkinDate, setCheckinDate] = useState(new Date());
-  const [parkingDate, setParkingDate] = useState(new Date());
+  const [checkinDate, setCheckinDate] = useState(1609470000000);
+  const [parkingDate, setParkingDate] = useState(Date.now());
   const dispatch = useDispatch();
   const { metrics } = useSelector((state) => state.metrics);
 
   useEffect(() => {
-    dispatch(findMetrics(checkinDate, parkingDate));
-  }, []);
+    dispatch(findMetrics({parkingDate, checkinDate}));
+  }, [checkinDate, parkingDate]);
   return (
     <>
       <DatePicker
