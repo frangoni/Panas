@@ -10,15 +10,15 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 const DatePicker = ({ checkinDate, parkingDate, setParkingDate, setCheckinDate }) => {
   const colorInput = 'white';
   const colorLabel = 'wheat';
-  const [icon, setIcon] = useState(<ExpandLessIcon fontSize='large'/>);
+  const [icon, setIcon] = useState(<ExpandLessIcon fontSize='large' />);
   const [opened, setOpened] = useState(true);
 
-  const handleDate = (date)=>{
-    return new Date(date.replace(/^(\d{1,2}\/)(\d{1,2}\/)(\d{4})$/, '$2$1$3')).getTime()
-  }
+  const handleDate = (date) => {
+    return new Date(date.replace(/^(\d{1,2}\/)(\d{1,2}\/)(\d{4})$/, '$2$1$3')).getTime();
+  };
   const handleToggle = () => {
     setOpened((v) => !v);
-    opened ? setIcon(<ExpandMoreIcon fontSize='large'/>) : setIcon(<ExpandLessIcon fontSize='large'/>);
+    opened ? setIcon(<ExpandMoreIcon fontSize='large' />) : setIcon(<ExpandLessIcon fontSize='large' />);
   };
 
   return (
@@ -34,7 +34,7 @@ const DatePicker = ({ checkinDate, parkingDate, setParkingDate, setCheckinDate }
               format='dd/MM/yyyy'
               value={checkinDate}
               onChange={(e, v) => {
-                let timestamp = handleDate(v)
+                let timestamp = handleDate(v);
                 setCheckinDate(timestamp);
               }}
               KeyboardButtonProps={{
@@ -53,7 +53,7 @@ const DatePicker = ({ checkinDate, parkingDate, setParkingDate, setCheckinDate }
               format='dd/MM/yyyy'
               value={parkingDate}
               onChange={(e, v) => {
-                let timestamp = handleDate(v)
+                let timestamp = handleDate(v);
                 setParkingDate(timestamp);
               }}
               KeyboardButtonProps={{
@@ -70,9 +70,10 @@ const DatePicker = ({ checkinDate, parkingDate, setParkingDate, setCheckinDate }
         onClick={handleToggle}
         style={{
           backgroundColor: opened ? 'rgba(0,0,0,0)' : 'rgba(81, 79, 76)',
+          boxShadow: opened ? null : 'inset -10px -10px 15px rgb(40 44 52 / 70%), inset 10px 10px 15px rgb(255 255 255 / 17%)',
           transform: 'scale(1.1)',
           position: 'fixed',
-          top: '0',
+          top: '8px',
           color: colorLabel,
         }}
       >

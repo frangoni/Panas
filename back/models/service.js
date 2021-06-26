@@ -31,11 +31,11 @@ const serviceSchema = new Schema({
     type: Number,
     default: Date.now(),
   },
-  interior: {
+  tunel: {
     type: Number,
     default: '',
   },
-  tunel: {
+  interior: {
     type: Number,
     default: '',
   },
@@ -51,6 +51,15 @@ const serviceSchema = new Schema({
 
 serviceSchema.post('save', function (service) {
   io.emit('station');
+});
+
+serviceSchema.virtual('promedio').get(function () {
+  const delay = {};
+  delay.tunel = this.tunel - this.checkin;
+  delay.interior = this.interior - this.tunel;
+  delay.secado = this.secado - this.interior;
+  delay.parking = this.parking - this.secado;
+  return delay;
 });
 
 const Service = mongoose.model('Service', serviceSchema);

@@ -59,11 +59,37 @@ const stationCheck = async (req, res) => {
 
 const getMetrics = async (req, res) => {
   const { checkinDate, parkingDate } = req.query;
-  const metrics = {};
+  const metrics = {
+    ingresos: 0,
+    clientes: {},
+    productos: {},
+    promedios: { tunel: 0, interior: 0, secado: 0, parking: 0 },
+  };
   try {
-    const services = await Service.find({ where: { checkin: { $gte: +checkinDate }, parking: { $lte: +parkingDate } } });
+    let services = await Service.find({
+      checkin: { $gte: Number(checkinDate) },
+      parking: { $lte: Number(parkingDate) },
+    })
+      .populate('cliente')
+      .populate('producto');
+
+    const l = services.length;
     console.log('services :', services);
-    res.status(200).send(services);
+
+    services.map(service => {
+      metrics.promedios.tunel += service.promedio.tunel / l;
+      metrics.promedios.interior += service.promedio.interior / l;
+      metrics.promedios.secado += service.promedio.secado / l;
+      metrics.promedios.parking += service.promedio.parking / l;
+      metrics.ingresos += service.precio;
+      metrics.clientes[service.cliente.patente]
+        ? (metrics.clientes[service.cliente.patente] += 1)
+        : (metrics.clientes[service.cliente.patente] = 1);
+      metrics.productos[service.producto.nombre]
+        ? (metrics.productos[service.producto.nombre] += 1)
+        : (metrics.productos[service.producto.nombre] = 1);
+    });
+    res.status(200).send({ ...metrics, q: l });
   } catch (error) {
     console.log('ERROR AL BUSCAR METRICAS :', error);
     res.status(503).send(error);

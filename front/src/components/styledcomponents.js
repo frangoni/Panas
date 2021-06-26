@@ -89,10 +89,10 @@ export const Picker = styled.div`
   background-color: rgba(81, 79, 76);
   position: fixed;
   display: flex;
-  padding: 0 2% 0.5%;
+  padding: 2% 0.5% 0.5%;
   top: 0;
   animation: ${ease} 0.5s;
   & > * {
-    margin: 10% 3% 3%;
+    margin: 3% 3%;
   }
 `;
