@@ -8,6 +8,6 @@ const { isUser, isAdmin } = require('../middleware/isUser');
 router.get('/', isUser, getServices);
 router.post('/', isUser, createService);
 router.put('/:id', isUser, stationCheck);
-router.get('/metrics', isAdmin, getMetrics);
+router.get('/metrics' /* , isAdmin */, getMetrics);
 
 module.exports = router;

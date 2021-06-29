@@ -63,7 +63,12 @@ const getMetrics = async (req, res) => {
     ingresos: 0,
     clientes: {},
     productos: {},
-    promedios: { tunel: 0, interior: 0, secado: 0, parking: 0 },
+    promedios: [
+      { estacion: 'Tunel', Minutos: 0 },
+      { estacion: 'Interior', Minutos: 0 },
+      { estacion: 'Secado', Minutos: 0 },
+      { estacion: 'Parking', Minutos: 0 },
+    ],
   };
   try {
     let services = await Service.find({
@@ -74,14 +79,13 @@ const getMetrics = async (req, res) => {
       .populate('producto');
 
     const l = services.length;
-    console.log('services :', services);
 
     services.map(service => {
-      metrics.promedios.tunel += service.promedio.tunel / l;
-      metrics.promedios.interior += service.promedio.interior / l;
-      metrics.promedios.secado += service.promedio.secado / l;
-      metrics.promedios.parking += service.promedio.parking / l;
       metrics.ingresos += service.precio;
+      metrics.promedios[0].Minutos += service.promedio.tunel / l;
+      metrics.promedios[1].Minutos += service.promedio.interior / l;
+      metrics.promedios[2].Minutos += service.promedio.secado / l;
+      metrics.promedios[3].Minutos += service.promedio.parking / l;
       metrics.clientes[service.cliente.patente]
         ? (metrics.clientes[service.cliente.patente] += 1)
         : (metrics.clientes[service.cliente.patente] = 1);
@@ -89,6 +93,7 @@ const getMetrics = async (req, res) => {
         ? (metrics.productos[service.producto.nombre] += 1)
         : (metrics.productos[service.producto.nombre] = 1);
     });
+
     res.status(200).send({ ...metrics, q: l });
   } catch (error) {
     console.log('ERROR AL BUSCAR METRICAS :', error);

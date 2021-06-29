@@ -111,6 +111,11 @@ img {
   transform: scale(2);
 }
 
+#metrics {
+  display: flex;
+  flex-flow: column wrap;
+}
+
 @media (max-width: 1200px) {
   #form {
     width: 95vw;
