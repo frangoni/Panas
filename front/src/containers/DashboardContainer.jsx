@@ -1,78 +1,78 @@
-import React, { useState } from "react";
-import clsx from "clsx";
-import { makeStyles } from "@material-ui/core/styles";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import Drawer from "@material-ui/core/Drawer";
-import Divider from "@material-ui/core/Divider";
-import Container from "@material-ui/core/Container";
-import Grid from "@material-ui/core/Grid";
+import React, { useState } from 'react';
+import clsx from 'clsx';
+import { makeStyles } from '@material-ui/core/styles';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import Drawer from '@material-ui/core/Drawer';
+import Divider from '@material-ui/core/Divider';
+import Container from '@material-ui/core/Container';
+import Grid from '@material-ui/core/Grid';
 
 // ICONOS
-import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ListItemText from "@material-ui/core/ListItemText";
-import BarChartIcon from "@material-ui/icons/BarChart";
-import AddIcon from "@material-ui/icons/Add";
-import ShoppingBasketIcon from "@material-ui/icons/ShoppingBasket";
-import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
-import ChevronRightIcon from "@material-ui/icons/ChevronRight";
-import IconButton from "@material-ui/core/IconButton";
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+import BarChartIcon from '@material-ui/icons/BarChart';
+import AddIcon from '@material-ui/icons/Add';
+import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
+import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import IconButton from '@material-ui/core/IconButton';
 
-import AddProducts from "../containers/AddProductContainer";
-import { TransitionDiv } from "../components/styledcomponents";
-import AllProductsContainer from "./AllProductsContainer";
-import MetricsContainer from "./MetricsContainer";
+import AddProducts from '../containers/AddProductContainer';
+import { TransitionDiv } from '../components/styledcomponents';
+import AllProductsContainer from './AllProductsContainer';
+import MetricsContainer from './MetricsContainer';
 
 const drawerWidth = 240;
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   root: {
-    display: "flex",
-    height: "100vh",
-    width: "100%",
-    position: "fixed",
+    display: 'flex',
+    height: '100vh',
+    width: '100%',
+    position: 'fixed',
   },
   toolbarIcon: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "flex-end",
-    padding: "0 8px",
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    padding: '0 8px',
   },
   drawerPaper: {
-    position: "relative",
-    whiteSpace: "nowrap",
+    position: 'relative',
+    whiteSpace: 'nowrap',
     width: drawerWidth,
-    transition: theme.transitions.create("width", {
+    transition: theme.transitions.create('width', {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
     }),
-    backgroundColor: "rgba(80, 69, 69)",
+    backgroundColor: 'rgba(80, 69, 69)',
   },
   drawerPaperClose: {
-    overflowX: "hidden",
-    transition: theme.transitions.create("width", {
+    overflowX: 'hidden',
+    transition: theme.transitions.create('width', {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
     width: theme.spacing(7),
-    [theme.breakpoints.up("sm")]: {
+    [theme.breakpoints.up('sm')]: {
       width: theme.spacing(9),
     },
   },
   paper: {
     padding: theme.spacing(2),
-    display: "flex",
-    overflow: "auto",
-    flexDirection: "column",
+    display: 'flex',
+    overflow: 'auto',
+    flexDirection: 'column',
   },
   icons: {
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "space-around",
-    height: "100%",
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-around',
+    height: '100%',
   },
   container: {
-    margin: "10vh auto",
+    margin: '10vh auto',
   },
 }));
 
@@ -89,21 +89,21 @@ export default function DashboardContainer() {
     <div className={classes.root}>
       <CssBaseline />
       <Drawer
-        variant="permanent"
+        variant='permanent'
         classes={{
           paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose),
         }}
       >
         {open ? (
           <div className={classes.toolbarIcon}>
-            <IconButton onClick={handleDrawerOpen} style={{ outline: "none" }}>
-              <ChevronLeftIcon style={{ color: "white" }} />
+            <IconButton onClick={handleDrawerOpen} style={{ outline: 'none' }}>
+              <ChevronLeftIcon style={{ color: 'white' }} />
             </IconButton>
           </div>
         ) : (
           <div className={classes.toolbarIcon}>
-            <IconButton onClick={handleDrawerOpen} style={{ outline: "none" }}>
-              <ChevronRightIcon style={{ color: "white" }} />
+            <IconButton onClick={handleDrawerOpen} style={{ outline: 'none' }}>
+              <ChevronRightIcon style={{ color: 'white' }} />
             </IconButton>
           </div>
         )}
@@ -112,28 +112,28 @@ export default function DashboardContainer() {
         <div className={classes.icons}>
           <ListItem button onClick={() => setItems(1)}>
             <ListItemIcon>
-              <BarChartIcon style={{ color: "white" }} />
+              <BarChartIcon style={{ color: 'white' }} />
             </ListItemIcon>
-            <ListItemText style={{ color: "white" }} primary="Métricas" />
+            <ListItemText style={{ color: 'white' }} primary='Metricas' />
           </ListItem>
           <Divider />
           <ListItem button onClick={() => setItems(2)}>
             <ListItemIcon>
-              <ShoppingBasketIcon style={{ color: "white" }} />
+              <ShoppingBasketIcon style={{ color: 'white' }} />
             </ListItemIcon>
-            <ListItemText style={{ color: "white" }} primary="Productos" />
+            <ListItemText style={{ color: 'white' }} primary='Productos' />
           </ListItem>
           <Divider />
           <ListItem button onClick={() => setItems(3)}>
             <ListItemIcon>
-              <AddIcon style={{ color: "white" }} />
+              <AddIcon style={{ color: 'white' }} />
             </ListItemIcon>
-            <ListItemText style={{ color: "white" }} primary="Añadir Productos" />
+            <ListItemText style={{ color: 'white' }} primary='Agregar Productos' />
           </ListItem>
         </div>
       </Drawer>
 
-      <Container maxWidth="lg" className={classes.container}>
+      <Container maxWidth='lg' className={classes.container}>
         <Grid>
           <Grid item xs={12}>
             {items == 1 && <MetricsContainer />}

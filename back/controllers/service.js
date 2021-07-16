@@ -60,7 +60,7 @@ const stationCheck = async (req, res) => {
 const getMetrics = async (req, res) => {
   const { checkinDate, parkingDate } = req.query;
   const metrics = {
-    ingresos: 0,
+    ingresos: {},
     clientes: {},
     productos: {},
     promedios: [
@@ -81,7 +81,9 @@ const getMetrics = async (req, res) => {
     const l = services.length;
 
     services.map(service => {
-      metrics.ingresos += service.precio;
+      let date = new Date(service.parking);
+      let mmyy = `${date.getMonth() + 1}-${date.getFullYear()}`;
+
       metrics.promedios[0].Minutos += service.promedio.tunel / l;
       metrics.promedios[1].Minutos += service.promedio.interior / l;
       metrics.promedios[2].Minutos += service.promedio.secado / l;
@@ -92,8 +94,10 @@ const getMetrics = async (req, res) => {
       metrics.productos[service.producto.nombre]
         ? (metrics.productos[service.producto.nombre] += 1)
         : (metrics.productos[service.producto.nombre] = 1);
+      metrics.ingresos[mmyy]
+        ? (metrics.ingresos[mmyy] += service.precio)
+        : (metrics.ingresos[mmyy] = service.precio);
     });
-
     res.status(200).send({ ...metrics, q: l });
   } catch (error) {
     console.log('ERROR AL BUSCAR METRICAS :', error);
