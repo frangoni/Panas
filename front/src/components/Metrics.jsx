@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
-import Grid from '@material-ui/core/Grid';
+import React from 'react';
 import {
   AreaChart,
   Area,
-  RadialBarChart,
-  RadialBar,
+  FunnelChart,
+  Funnel,
   BarChart,
   PieChart,
   Pie,
   Bar,
+  LabelList,
   Legend,
   Tooltip,
   XAxis,
@@ -16,9 +16,9 @@ import {
 } from 'recharts';
 
 const Metrics = ({ metrics }) => {
-  const width = 600;
-  const height = 300;
+  const color = 'rgb(81, 79, 76)';
   const { clientes, ingresos, productos, promedios } = metrics;
+  console.log('promedios :', promedios);
   const mapData = obj => {
     const arr = [];
     for (const key in obj) {
@@ -30,80 +30,61 @@ const Metrics = ({ metrics }) => {
   const productData = mapData(productos);
   const clientesData = mapData(clientes);
   const ingresosData = mapData(ingresos);
-  console.log('ingresosData :', ingresosData);
-
   return (
-    <Grid container id='metrics' spacing={5}>
-      <Grid item xs={6}>
-        <BarChart width={width} height={height} data={promedios}>
-          <XAxis dataKey='estacion' />
-          <YAxis />
+    <div id='metrics'>
+      {/*BARRAS */}
+      <div id='barchart'>
+        <p className='title'>ESTACIONES</p>
+        <BarChart width={700} height={250} data={promedios}>
+          <XAxis dataKey='estacion' stroke={'white'} />
+          <YAxis stroke={'white'} />
           <Tooltip />
-          <Legend />
-          <Bar dataKey='Minutos' fill='#8884d8' />
+          <Bar dataKey='Minutos' nameKey='estacion' fill={color} stroke={'white'} />
         </BarChart>
-      </Grid>
-
-      <Grid item xs={4}>
-        <PieChart width={width} height={height}>
+      </div>
+      {/* PIE */}
+      <div id='piechart'>
+        <p className='title'>PRODUCTOS</p>
+        <PieChart width={450} height={300}>
           <Pie
             data={productData}
             dataKey='Cantidad'
             nameKey='Nombre'
             innerRadius={60}
-            outerRadius={80}
-            fill='#8884d8'
+            outerRadius={90}
+            fill={color}
+            stroke={'white'}
           />
           <Tooltip />
-          <Legend verticalAlign='bottom' layout='vertical' />
         </PieChart>
-      </Grid>
-      <Grid item xs={4}>
-        <RadialBarChart
-          width={width}
-          height={height}
-          data={clientesData}
-          startAngle={180}
-          endAngle={0}
-        >
-          <RadialBar
-            background
-            clockWise={true}
+      </div>
+      {/* AREA */}
+      <div id='areachart'>
+        <p className='title'>INGRESOS</p>
+        <AreaChart width={700} height={250} data={ingresosData}>
+          <XAxis dataKey='Nombre' stroke={'white'} />
+          <YAxis stroke={'white'} dataKey='Cantidad' />
+          <Tooltip />
+          <Area type='monotone' dataKey='Cantidad' nameKey='Nombre' fill={color} stroke={'white'} />
+        </AreaChart>
+      </div>
+      {/* FUNNEL */}
+      <div id='funnelchart'>
+        <p className='title'>CLIENTES</p>
+        <FunnelChart width={450} height={300}>
+          <Funnel
+            fill={color}
             dataKey='Cantidad'
             nameKey='Nombre'
-            label={{ fill: '#666', position: 'insideStart', value: 'Nombre' }}
-          />
+            data={clientesData}
+            stroke={'white'}
+          >
+            <LabelList fill='white' dataKey='Nombre' />
+          </Funnel>
           <Tooltip />
-        </RadialBarChart>
-      </Grid>
-      <Grid item xs={6}>
-        <AreaChart
-          width={730}
-          height={250}
-          data={ingresosData.concat([
-            { Nombre: '5-2021', Cantidad: 2000 },
-            { Nombre: '4-2021', Cantidad: 1200 },
-          ])}
-        >
-          <defs>
-            <linearGradient id='colorUv' x1='0' y1='0' x2='0' y2='1'>
-              <stop offset='5%' stopColor='#8884d8' stopOpacity={0.8} />
-              <stop offset='95%' stopColor='#8884d8' stopOpacity={0} />
-            </linearGradient>
-          </defs>
-          <XAxis dataKey='Nombre' />
-          <YAxis />
-          <Tooltip />
-          <Area
-            type='monotone'
-            dataKey='Cantidad'
-            stroke='#8884d8'
-            fillOpacity={1}
-            fill='url(#colorUv)'
-          />
-        </AreaChart>
-      </Grid>
-    </Grid>
+        </FunnelChart>
+      </div>
+    </div>
   );
 };
 

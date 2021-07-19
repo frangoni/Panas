@@ -10,21 +10,23 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 const DatePicker = ({ checkinDate, parkingDate, setParkingDate, setCheckinDate }) => {
   const colorInput = 'white';
   const colorLabel = 'wheat';
-  const [icon, setIcon] = useState(<ExpandLessIcon fontSize='large' />);
-  const [opened, setOpened] = useState(true);
+  const [icon, setIcon] = useState(<ExpandMoreIcon fontSize='large' />);
+  const [opened, setOpened] = useState(false);
 
-  const handleDate = (date) => {
+  const handleDate = date => {
     return new Date(date.replace(/^(\d{1,2}\/)(\d{1,2}\/)(\d{4})$/, '$2$1$3')).getTime();
   };
   const handleToggle = () => {
-    setOpened((v) => !v);
-    opened ? setIcon(<ExpandMoreIcon fontSize='large' />) : setIcon(<ExpandLessIcon fontSize='large' />);
+    setOpened(v => !v);
+    opened
+      ? setIcon(<ExpandMoreIcon fontSize='large' />)
+      : setIcon(<ExpandLessIcon fontSize='large' />);
   };
 
   return (
     <div style={{ display: 'flex', justifyContent: 'center' }}>
       {opened && (
-        <Picker>
+        <Picker style={{ zIndex: 1000 }}>
           <MuiPickersUtilsProvider utils={DateFnsUtils}>
             <KeyboardDatePicker
               margin='normal'
@@ -70,11 +72,14 @@ const DatePicker = ({ checkinDate, parkingDate, setParkingDate, setCheckinDate }
         onClick={handleToggle}
         style={{
           backgroundColor: opened ? 'rgba(0,0,0,0)' : 'rgba(81, 79, 76)',
-          boxShadow: opened ? null : 'inset -10px -10px 15px rgb(40 44 52 / 70%), inset 10px 10px 15px rgb(255 255 255 / 17%)',
+          boxShadow: opened
+            ? null
+            : 'inset -10px -10px 15px rgb(40 44 52 / 70%), inset 10px 10px 15px rgb(255 255 255 / 17%)',
           transform: 'scale(1.1)',
           position: 'fixed',
           top: '8px',
           color: colorLabel,
+          zIndex: 1000,
         }}
       >
         {icon}

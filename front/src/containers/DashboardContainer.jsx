@@ -19,7 +19,6 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import IconButton from '@material-ui/core/IconButton';
 
 import AddProducts from '../containers/AddProductContainer';
-import { TransitionDiv } from '../components/styledcomponents';
 import AllProductsContainer from './AllProductsContainer';
 import MetricsContainer from './MetricsContainer';
 
@@ -62,7 +61,7 @@ const useStyles = makeStyles(theme => ({
   paper: {
     padding: theme.spacing(2),
     display: 'flex',
-    overflow: 'auto',
+    overflow: 'visible',
     flexDirection: 'column',
   },
   icons: {
@@ -72,7 +71,8 @@ const useStyles = makeStyles(theme => ({
     height: '100%',
   },
   container: {
-    margin: '10vh auto',
+    margin: '0vh 0',
+    overflow: 'scroll',
   },
 }));
 
@@ -133,7 +133,7 @@ export default function DashboardContainer() {
         </div>
       </Drawer>
 
-      <Container maxWidth='lg' className={classes.container}>
+      <Container maxWidth='xl' className={classes.container}>
         <Grid>
           <Grid item xs={12}>
             {items == 1 && <MetricsContainer />}

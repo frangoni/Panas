@@ -2,9 +2,8 @@
   "name": "front",
   "version": "1.0.0",
   "scripts": {
-    "prestart": "rimraf ../back/public",
     "prebuild": "rimraf ../back/public",
-    "start": "parcel serve ./src/index.html --dist-dir  ../back/public ",
+    "start": "parcel  ./src/index.html --dist-dir  ../back/public ",
     "build": "parcel build ./src/index.html --dist-dir ../back/public "
   },
   "author": "",
