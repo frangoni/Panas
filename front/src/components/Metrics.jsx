@@ -9,7 +9,6 @@ import {
   Pie,
   Bar,
   LabelList,
-  Legend,
   Tooltip,
   XAxis,
   YAxis,
@@ -18,18 +17,27 @@ import {
 const Metrics = ({ metrics }) => {
   const color = 'rgb(81, 79, 76)';
   const { clientes, ingresos, productos, promedios } = metrics;
-  console.log('promedios :', promedios);
-  const mapData = obj => {
+  const compare = key => {
+    return function (a, b) {
+      return a[key] < b[key] ? -1 : 1;
+    };
+  };
+
+  const mapData = (obj, sortKey) => {
     const arr = [];
     for (const key in obj) {
       arr.push({ Nombre: key, Cantidad: obj[key] });
     }
-    return arr.slice(0, 8);
+    return arr.sort(compare(sortKey)).slice(-7);
   };
 
-  const productData = mapData(productos);
-  const clientesData = mapData(clientes);
-  const ingresosData = mapData(ingresos);
+  const productData = mapData(productos, 'Cantidad');
+  console.log('productData :', productData);
+  const clientesData = mapData(clientes, 'Cantidad');
+  console.log('clientesData :', clientesData);
+  const ingresosData = mapData(ingresos, 'Nombre');
+  console.log('ingresosData :', ingresosData);
+
   return (
     <div id='metrics'>
       {/*BARRAS */}
@@ -63,9 +71,9 @@ const Metrics = ({ metrics }) => {
         <p className='title'>INGRESOS</p>
         <AreaChart width={700} height={250} data={ingresosData}>
           <XAxis dataKey='Nombre' stroke={'white'} />
-          <YAxis stroke={'white'} dataKey='Cantidad' />
+          <YAxis stroke={'white'} />
           <Tooltip />
-          <Area type='monotone' dataKey='Cantidad' nameKey='Nombre' fill={color} stroke={'white'} />
+          <Area type='monotone' dataKey='Cantidad' fill={color} stroke={'black'} />
         </AreaChart>
       </div>
       {/* FUNNEL */}

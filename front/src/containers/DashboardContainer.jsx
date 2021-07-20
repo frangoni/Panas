@@ -72,7 +72,7 @@ const useStyles = makeStyles(theme => ({
   },
   container: {
     margin: '0vh 0',
-    overflow: 'scroll',
+    overflowY: 'scroll',
   },
 }));
 

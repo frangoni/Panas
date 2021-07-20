@@ -82,7 +82,9 @@ const getMetrics = async (req, res) => {
 
     services.map(service => {
       let date = new Date(service.parking);
-      let mmyy = `${date.getMonth() + 1}-${date.getFullYear()}`;
+      let yyyy = date.getFullYear();
+      let mm = date.getMonth() + 1;
+      let yyyymm = `${yyyy}-${mm.toString().length == 1 ? `0${mm}` : mm}`;
 
       metrics.promedios[0].Minutos += service.promedio.tunel / l;
       metrics.promedios[1].Minutos += service.promedio.interior / l;
@@ -94,9 +96,9 @@ const getMetrics = async (req, res) => {
       metrics.productos[service.producto.nombre]
         ? (metrics.productos[service.producto.nombre] += 1)
         : (metrics.productos[service.producto.nombre] = 1);
-      metrics.ingresos[mmyy]
-        ? (metrics.ingresos[mmyy] += service.precio)
-        : (metrics.ingresos[mmyy] = service.precio);
+      metrics.ingresos[yyyymm]
+        ? (metrics.ingresos[yyyymm] += service.precio)
+        : (metrics.ingresos[yyyymm] = service.precio);
     });
     res.status(200).send({ ...metrics, q: l });
   } catch (error) {
