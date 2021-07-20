@@ -1,21 +1,21 @@
-import { createReducer, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
+import { createReducer, createAsyncThunk } from '@reduxjs/toolkit';
+import axios from 'axios';
 
-export const findClient = createAsyncThunk("FIND_CLIENT", (patente) => {
+export const findClient = createAsyncThunk('FIND_CLIENT', patente => {
   return axios
     .get(`/api/client/${patente}`)
-    .then((res) => {
+    .then(res => {
       return res.data;
     })
-    .catch((e) => console.log("error", e));
+    .catch(e => e);
 });
-export const createService = createAsyncThunk("CREATE_SERVICE", (data) => {
+export const createService = createAsyncThunk('CREATE_SERVICE', data => {
   return axios
-    .post("/api/service", data)
-    .then((res) => {
+    .post('/api/service', data)
+    .then(res => {
       return res.data;
     })
-    .catch((e) => console.log(e));
+    .catch(e => e);
 });
 
 const initialState = {

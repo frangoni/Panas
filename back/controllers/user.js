@@ -5,7 +5,6 @@ const register = async (req, res, next) => {
     const newUser = await User.create(req.body);
     res.status(201).send(newUser);
   } catch (error) {
-    console.log('ERROR EN REGISTRO', error);
     res.status(400).send(error);
   }
 };

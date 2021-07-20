@@ -1,14 +1,14 @@
 import { createReducer, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-export const findMetrics = createAsyncThunk('FIND_METRICS', (dates) => {
+export const findMetrics = createAsyncThunk('FIND_METRICS', dates => {
   const { checkinDate, parkingDate } = dates;
   return axios
     .get(`/api/service/metrics?checkinDate=${checkinDate}&parkingDate=${parkingDate}`)
-    .then((res) => {
+    .then(res => {
       return res.data;
     })
-    .catch((e) => console.log('error', e));
+    .catch(e => e);
 });
 
 const initialState = {

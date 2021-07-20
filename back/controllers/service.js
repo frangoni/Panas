@@ -4,13 +4,15 @@ const sendEmail = require('../email');
 
 const createService = async (req, res) => {
   const { client, service } = req.body;
+  console.log('service :', service);
+  console.log('client :', client);
   try {
     let clientDB = await Client.findOne({ patente: client.patente });
     if (!clientDB) clientDB = await Client.create(client);
     const serviceDB = await Service.create({ ...service, cliente: clientDB });
     res.status(201).send(serviceDB);
   } catch (error) {
-    console.log('ERROR AL CREAR SERVICIO', error);
+    console.log('error :', error);
     res.status(503).send(error);
   }
 };
@@ -34,7 +36,6 @@ const getServices = async (req, res) => {
     const services = await Service.find(options()).populate('cliente');
     res.status(201).send(services);
   } catch (error) {
-    console.log('ERROR AL TRAER SERVICIOS', error);
     res.status(503).send(error);
   }
 };
@@ -48,11 +49,10 @@ const stationCheck = async (req, res) => {
     service.save();
     const { email, nombre } = service.cliente;
     const whom = nombre.substr(0, nombre.indexOf(' '));
-    station == 'parking' ? sendEmail(email, whom) : null;
+    station == 'secado' ? sendEmail(email, whom) : null;
 
     res.status(201).send(service);
   } catch (error) {
-    console.log('ERROR EN CHECK DE ESTACIÓN', error);
     res.status(503).send(error);
   }
 };
@@ -102,7 +102,6 @@ const getMetrics = async (req, res) => {
     });
     res.status(200).send({ ...metrics, q: l });
   } catch (error) {
-    console.log('ERROR AL BUSCAR METRICAS :', error);
     res.status(503).send(error);
   }
 };

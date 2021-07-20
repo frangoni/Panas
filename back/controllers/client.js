@@ -1,4 +1,4 @@
-const Client = require("../models/client");
+const Client = require('../models/client');
 
 const findClient = async (req, res) => {
   const patente = req.params;
@@ -6,7 +6,6 @@ const findClient = async (req, res) => {
     const cliente = await Client.findOne(patente);
     res.status(201).send(cliente);
   } catch (error) {
-    console.log("ERROR AL BUSCAR CLIENTE", cliente);
     res.status(501).send(error);
   }
 };

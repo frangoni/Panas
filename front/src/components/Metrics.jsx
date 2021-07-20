@@ -32,17 +32,14 @@ const Metrics = ({ metrics }) => {
   };
 
   const productData = mapData(productos, 'Cantidad');
-  console.log('productData :', productData);
   const clientesData = mapData(clientes, 'Cantidad');
-  console.log('clientesData :', clientesData);
   const ingresosData = mapData(ingresos, 'Nombre');
-  console.log('ingresosData :', ingresosData);
 
   return (
     <div id='metrics'>
       {/*BARRAS */}
       <div id='barchart'>
-        <p className='title'>ESTACIONES</p>
+        <p>ESTACIONES</p>
         <BarChart width={700} height={250} data={promedios}>
           <XAxis dataKey='estacion' stroke={'white'} />
           <YAxis stroke={'white'} />
@@ -52,7 +49,7 @@ const Metrics = ({ metrics }) => {
       </div>
       {/* PIE */}
       <div id='piechart'>
-        <p className='title'>PRODUCTOS</p>
+        <p>PRODUCTOS</p>
         <PieChart width={450} height={300}>
           <Pie
             data={productData}
@@ -68,7 +65,7 @@ const Metrics = ({ metrics }) => {
       </div>
       {/* AREA */}
       <div id='areachart'>
-        <p className='title'>INGRESOS</p>
+        <p>INGRESOS</p>
         <AreaChart width={700} height={250} data={ingresosData}>
           <XAxis dataKey='Nombre' stroke={'white'} />
           <YAxis stroke={'white'} />
@@ -78,7 +75,7 @@ const Metrics = ({ metrics }) => {
       </div>
       {/* FUNNEL */}
       <div id='funnelchart'>
-        <p className='title'>CLIENTES</p>
+        <p>CLIENTES</p>
         <FunnelChart width={450} height={300}>
           <Funnel
             fill={color}
