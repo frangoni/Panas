@@ -4,8 +4,18 @@ import { GlassCard } from './styledcomponents';
 import logo from '../images/color.png';
 
 const Checkin = ({ datos, setters, handleSubmit, border, handlePatente, disabled }) => {
-  const { patente, marca, modelo, nombre, telefono, email, estado, observaciones, products } = datos;
-  const { setMarca, setModelo, setNombre, setTelefono, setEmail, setEstado, setObservaciones, handleProduct } = setters;
+  const { patente, marca, modelo, nombre, telefono, email, estado, observaciones, products } =
+    datos;
+  const {
+    setMarca,
+    setModelo,
+    setNombre,
+    setTelefono,
+    setEmail,
+    setEstado,
+    setObservaciones,
+    handleProduct,
+  } = setters;
   const colorInput = 'white';
   const colorLabel = 'wheat';
 
@@ -57,7 +67,7 @@ const Checkin = ({ datos, setters, handleSubmit, border, handlePatente, disabled
             InputProps={{ style: { color: colorInput } }}
             InputLabelProps={{ style: { color: colorLabel } }}
             disabled
-            label='Teléfono'
+            label='Telefono'
             defaultValue={`+54 011`}
             style={{ width: ' 30%' }}
           />
@@ -106,7 +116,11 @@ const Checkin = ({ datos, setters, handleSubmit, border, handlePatente, disabled
           value={observaciones}
           onChange={({ target: { value } }) => setObservaciones(value)}
         />
-        <NativeSelect inputProps={{ style: { color: colorInput } }} onChange={({ target: { value } }) => handleProduct(value)} label='Productos'>
+        <NativeSelect
+          inputProps={{ style: { color: colorInput } }}
+          onChange={({ target: { value } }) => handleProduct(value)}
+          label='Productos'
+        >
           <option selected disabled>
             ELEGIR PRODUCTO
           </option>
@@ -117,7 +131,12 @@ const Checkin = ({ datos, setters, handleSubmit, border, handlePatente, disabled
               </option>
             ))}
         </NativeSelect>
-        <Button id='btn' fontSize='large' style={{ border: `thin solid ${border}` }} onClick={handleSubmit}>
+        <Button
+          id='btn'
+          fontSize='large'
+          style={{ border: `thin solid ${border}` }}
+          onClick={handleSubmit}
+        >
           CHECKIN
         </Button>
       </div>

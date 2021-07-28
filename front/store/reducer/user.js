@@ -29,7 +29,7 @@ const initialState = {
 
 const user = createReducer(initialState, {
   [login.fulfilled]: (state, action) => {
-    if (action.payload) {
+    if (action.payload.rol) {
       return { ...state, user: action.payload, didLogin: 'yes' };
     } else return { ...state, didLogin: 'no' };
   },

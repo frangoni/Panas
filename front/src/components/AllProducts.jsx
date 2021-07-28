@@ -6,7 +6,16 @@ import EditIcon from '@material-ui/icons/Edit';
 import DoneIcon from '@material-ui/icons/Done';
 import DeleteIcon from '@material-ui/icons/Delete';
 
-export default function AllProducts({ handleEdit, products, editable, handleEditable, handleDelete, nombre, precio, setNombre, setPrecio }) {
+export default function AllProducts({
+  products,
+  editable,
+  nombre,
+  precio,
+  setNombre,
+  setPrecio,
+  handleEditable,
+  handleAction,
+}) {
   return (
     <TransitionDiv>
       <Table>
@@ -16,11 +25,15 @@ export default function AllProducts({ handleEdit, products, editable, handleEdit
           <TableHeader>Editar</TableHeader>
         </TableRow>
         {products &&
-          products.map((product) => (
+          products.map(product => (
             <TableRow key={product._id}>
               <TableData>
                 {editable == product._id ? (
-                  <Input value={nombre} onChange={({ target: { value } }) => setNombre(value)} placeholder={product.nombre} />
+                  <Input
+                    value={nombre}
+                    onChange={({ target: { value } }) => setNombre(value)}
+                    placeholder={product.nombre}
+                  />
                 ) : (
                   <p>{product.nombre}</p>
                 )}
@@ -29,7 +42,9 @@ export default function AllProducts({ handleEdit, products, editable, handleEdit
                 {editable == product._id ? (
                   <Input
                     value={precio}
-                    onChange={({ target: { value } }) => /^[0-9]{0,5}$/.test(value) && setPrecio(value)}
+                    onChange={({ target: { value } }) =>
+                      /^[0-9]{0,5}$/.test(value) && setPrecio(value)
+                    }
                     placeholder={product.precio}
                   />
                 ) : (
@@ -40,19 +55,35 @@ export default function AllProducts({ handleEdit, products, editable, handleEdit
               <TableData>
                 {editable == product._id ? (
                   <>
-                    <IconButton onClick={() => handleEditable()} style={{ margin: '15px 0', outline: 'none' }} color='inherit'>
+                    <IconButton
+                      onClick={() => handleEditable()}
+                      style={{ margin: '15px 0', outline: 'none' }}
+                      color='inherit'
+                    >
                       <ClearIcon />
                     </IconButton>
-                    <IconButton onClick={() => handleEdit(product._id)} style={{ margin: '15px 0', outline: 'none' }} color='inherit'>
+                    <IconButton
+                      onClick={() => handleAction('edit')}
+                      style={{ margin: '15px 0', outline: 'none' }}
+                      color='inherit'
+                    >
                       <DoneIcon />
                     </IconButton>
                   </>
                 ) : (
                   <>
-                    <IconButton onClick={() => handleEditable(product._id)} style={{ margin: '15px 0', outline: 'none' }} color='inherit'>
+                    <IconButton
+                      onClick={() => handleEditable(product._id, 'edit')}
+                      style={{ margin: '15px 0', outline: 'none' }}
+                      color='inherit'
+                    >
                       <EditIcon />
                     </IconButton>
-                    <IconButton onClick={() => handleDelete(product._id)} style={{ margin: '15px 0', outline: 'none' }} color='inherit'>
+                    <IconButton
+                      onClick={() => handleEditable(product._id, 'delete')}
+                      style={{ margin: '15px 0', outline: 'none' }}
+                      color='inherit'
+                    >
                       <DeleteIcon />
                     </IconButton>
                   </>

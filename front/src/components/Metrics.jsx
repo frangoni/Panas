@@ -28,11 +28,11 @@ const Metrics = ({ metrics }) => {
     for (const key in obj) {
       arr.push({ Nombre: key, Cantidad: obj[key] });
     }
-    return arr.sort(compare(sortKey)).slice(-7);
+    return arr.sort(compare(sortKey));
   };
 
-  const productData = mapData(productos, 'Cantidad');
-  const clientesData = mapData(clientes, 'Cantidad');
+  const productData = mapData(productos, 'Cantidad').slice(-7);
+  const clientesData = mapData(clientes, 'Cantidad').slice(-7);
   const ingresosData = mapData(ingresos, 'Nombre');
 
   return (
@@ -63,16 +63,6 @@ const Metrics = ({ metrics }) => {
           <Tooltip />
         </PieChart>
       </div>
-      {/* AREA */}
-      <div id='areachart'>
-        <p>INGRESOS</p>
-        <AreaChart width={700} height={250} data={ingresosData}>
-          <XAxis dataKey='Nombre' stroke={'white'} />
-          <YAxis stroke={'white'} />
-          <Tooltip />
-          <Area type='monotone' dataKey='Cantidad' fill={color} stroke={'black'} />
-        </AreaChart>
-      </div>
       {/* FUNNEL */}
       <div id='funnelchart'>
         <p>CLIENTES</p>
@@ -88,6 +78,16 @@ const Metrics = ({ metrics }) => {
           </Funnel>
           <Tooltip />
         </FunnelChart>
+      </div>
+      {/* AREA */}
+      <div id='areachart'>
+        <p>INGRESOS</p>
+        <AreaChart width={700} height={250} data={ingresosData}>
+          <XAxis dataKey='Nombre' stroke={'white'} />
+          <YAxis stroke={'white'} />
+          <Tooltip />
+          <Area type='monotone' dataKey='Cantidad' fill={color} stroke={'black'} />
+        </AreaChart>
       </div>
     </div>
   );

@@ -24,7 +24,7 @@ const updateProduct = async (req, res) => {
 const deleteProduct = async (req, res) => {
   const id = req.params.id;
   try {
-    const deletedProduct = await Product.findByIdAndDelete(id);
+    const deletedProduct = await Product.findByIdAndUpdate(id, { activo: false });
     res.status(200).send(deletedProduct);
   } catch (error) {
     res.status(503, error);
@@ -33,7 +33,7 @@ const deleteProduct = async (req, res) => {
 
 const getProducts = async (req, res) => {
   try {
-    const products = await Product.find();
+    const products = await Product.find({ activo: true });
     res.status(200).send(products);
   } catch (error) {
     res.status(503, error);

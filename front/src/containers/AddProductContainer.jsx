@@ -11,14 +11,14 @@ const AddProductsContainer = () => {
   const dispatch = useDispatch();
   const notification = messageHandler(useSnackbar());
   const [border, setBorder] = useState('transparent');
-  const { product, created } = useSelector((state) => state.product);
+  const { product, created } = useSelector(state => state.product);
 
   const emptyForm = () => {
     setNombre('');
     setPrecio('');
   };
 
-  const handleBorder = (color) => {
+  const handleBorder = color => {
     setBorder(color);
     setTimeout(() => {
       setBorder('');
@@ -46,10 +46,19 @@ const AddProductsContainer = () => {
       dispatch(createProduct({ nombre, precio }));
     } else {
       notification.error(errorArray[0]);
-      setBorder('red');
+      handleBorder('red');
     }
   };
-  return <AddProducts border={border} handleSubmit={handleSubmit} precio={precio} nombre={nombre} setNombre={setNombre} setPrecio={setPrecio} />;
+  return (
+    <AddProducts
+      border={border}
+      handleSubmit={handleSubmit}
+      precio={precio}
+      nombre={nombre}
+      setNombre={setNombre}
+      setPrecio={setPrecio}
+    />
+  );
 };
 
 export default AddProductsContainer;

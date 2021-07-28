@@ -114,21 +114,21 @@ export default function DashboardContainer() {
             <ListItemIcon>
               <BarChartIcon style={{ color: 'white' }} />
             </ListItemIcon>
-            <ListItemText style={{ color: 'white' }} primary='Metricas' />
+            <ListItemText style={{ color: 'white' }} primary={`Métricas`} />
           </ListItem>
           <Divider />
           <ListItem button onClick={() => setItems(2)}>
             <ListItemIcon>
               <ShoppingBasketIcon style={{ color: 'white' }} />
             </ListItemIcon>
-            <ListItemText style={{ color: 'white' }} primary='Productos' />
+            <ListItemText style={{ color: 'white' }} primary={`Productos`} />
           </ListItem>
           <Divider />
           <ListItem button onClick={() => setItems(3)}>
             <ListItemIcon>
               <AddIcon style={{ color: 'white' }} />
             </ListItemIcon>
-            <ListItemText style={{ color: 'white' }} primary='Agregar Productos' />
+            <ListItemText style={{ color: 'white' }} primary={`Añadir Productos`} />
           </ListItem>
         </div>
       </Drawer>
