@@ -16,7 +16,7 @@ import logo from '../images/color.png';
 const firstColor = 'wheat';
 const secondColor = 'white';
 
-export default function Station({ services, user, setId, setHidden }) {
+export default function Station({ services, user, setId, setHidden, setVisible }) {
   return (
     <GlassCard>
       <div id='form'>
@@ -27,7 +27,7 @@ export default function Station({ services, user, setId, setHidden }) {
         {services.length ? (
           services.map(service => {
             return (
-              <div id='station' key={service._id}>
+              <div key={service._id} id='station'>
                 <ListItem>
                   <ListItemAvatar>
                     <Avatar>
@@ -39,6 +39,7 @@ export default function Station({ services, user, setId, setHidden }) {
                     primaryTypographyProps={{ style: { color: firstColor, fontSize: 'large' } }}
                     secondary={`${service.cliente.marca} ${service.cliente.modelo}`}
                     secondaryTypographyProps={{ style: { color: secondColor } }}
+                    onClick={() => (setVisible(true), setId(service._id))}
                   />
                   <IconButton
                     onClick={() => {

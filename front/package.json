@@ -4,7 +4,8 @@
   "scripts": {
     "prebuild": "rimraf ../back/public",
     "start": "parcel  ./src/index.html --dist-dir  ../back/public ",
-    "build": "parcel build ./src/index.html --dist-dir ../back/public "
+    "build": "parcel build ./src/index.html --dist-dir ../back/public ",
+    "postbuild": "npm start"
   },
   "author": "",
   "license": "ISC",

@@ -6,15 +6,16 @@ import ConfirmationModal from '../components/ConfirmationModal';
 import messageHandler from '../../utils/notification';
 import { useSnackbar } from 'notistack';
 import io from 'socket.io-client';
+import StationModal from '../components/StationModal';
 
 const StationContainer = () => {
   const dispatch = useDispatch();
   const { services } = useSelector(state => state.service);
   const { user } = useSelector(state => state.user);
   const [hidden, setHidden] = useState(true);
+  const [visible, setVisible] = useState(false);
   const [id, setId] = useState('');
   const notification = messageHandler(useSnackbar());
-  const socket = io(window.location.origin);
 
   const handleNext = () => {
     dispatch(updateService(id));
@@ -24,7 +25,12 @@ const StationContainer = () => {
     notification.success(message);
   };
 
+  const filterServices = () => {
+    return services.find(service => service._id == id);
+  };
+
   useEffect(() => {
+    const socket = io(window.location.origin);
     dispatch(fetchServices());
     socket.on('station', () => {
       dispatch(fetchServices());
@@ -36,7 +42,13 @@ const StationContainer = () => {
 
   return (
     <>
-      <Station services={services} user={user} setId={setId} setHidden={setHidden} />
+      <Station
+        services={services}
+        user={user}
+        setId={setId}
+        setHidden={setHidden}
+        setVisible={setVisible}
+      />
       {hidden ? null : (
         <ConfirmationModal
           setHidden={setHidden}
@@ -44,6 +56,7 @@ const StationContainer = () => {
           text={`¿Estación terminada?`}
         />
       )}
+      {visible ? <StationModal setVisible={setVisible} service={filterServices()} /> : null}
     </>
   );
 };

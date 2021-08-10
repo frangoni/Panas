@@ -14,7 +14,7 @@ export default function AllProducts({
   setNombre,
   setPrecio,
   handleEditable,
-  handleAction,
+  setHidden,
 }) {
   return (
     <TransitionDiv>
@@ -45,7 +45,7 @@ export default function AllProducts({
                     onChange={({ target: { value } }) =>
                       /^[0-9]{0,5}$/.test(value) && setPrecio(value)
                     }
-                    placeholder={product.precio}
+                    placeholder={`$${product.precio}`}
                   />
                 ) : (
                   <p>${product.precio}</p>
@@ -63,7 +63,7 @@ export default function AllProducts({
                       <ClearIcon />
                     </IconButton>
                     <IconButton
-                      onClick={() => handleAction('edit')}
+                      onClick={() => setHidden(false)}
                       style={{ margin: '15px 0', outline: 'none' }}
                       color='inherit'
                     >

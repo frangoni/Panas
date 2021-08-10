@@ -11,16 +11,16 @@ const AllProductsContainer = () => {
   const [precio, setPrecio] = useState('');
   const [editable, setEditable] = useState('');
   const [hidden, setHidden] = useState(true);
-  console.log('hidden :', hidden);
   const [action, setAction] = useState('');
   const dispatch = useDispatch();
   const notification = messageHandler(useSnackbar());
   const { products } = useSelector(({ product }) => product);
+
   useEffect(() => {
     dispatch(fetchProducts());
   }, []);
 
-  const handleEditable = (id, method) => {
+  const handleEditable = (id, method = '') => {
     id ? (setEditable(id), setAction(method)) : setEditable('');
     setNombre('');
     setPrecio('');
@@ -29,26 +29,22 @@ const AllProductsContainer = () => {
 
   const handleEdit = id => {
     nombre.length || precio
-      ? (dispatch(editProduct({ id, nombre, precio })),
-        setNombre(''),
-        setPrecio(''),
-        setEditable(''),
-        notification.success('Producto editado'))
+      ? dispatch(editProduct({ id, nombre, precio })).then(() => {
+          setNombre(''), setPrecio(''), setEditable(''), notification.success('Producto editado');
+        })
       : notification.error('Completar datos');
   };
   const handleDelete = id => {
-    dispatch(deleteProduct(id));
-    notification.success('Producto eliminado');
+    dispatch(deleteProduct(id)).then(() => {
+      setNombre(''), setPrecio(''), setEditable(''), notification.success('Producto eliminado');
+    });
   };
 
   const handleNext = () => {
     action == 'edit' ? handleEdit(editable) : handleDelete(editable);
     setHidden(true);
   };
-  const handleAction = str => {
-    setAction(str);
-    setHidden(false);
-  };
+
   return (
     <>
       <AllProducts
@@ -58,8 +54,8 @@ const AllProductsContainer = () => {
         precio={precio}
         setPrecio={setPrecio}
         setNombre={setNombre}
-        handleAction={handleAction}
         handleEditable={handleEditable}
+        setHidden={setHidden}
       />
       {hidden ? null : (
         <ConfirmationModal

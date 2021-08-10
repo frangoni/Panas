@@ -4,8 +4,6 @@ const sendEmail = require('../email');
 
 const createService = async (req, res) => {
   const { client, service } = req.body;
-  console.log('service :', service);
-  console.log('client :', client);
   try {
     let clientDB = await Client.findOne({ patente: client.patente });
     if (!clientDB) clientDB = await Client.create(client);
@@ -22,12 +20,12 @@ const getServices = async (req, res) => {
   const where = { [rol]: null };
   const options = () => {
     switch (rol) {
-      case 'tunel':
-        return where;
       case 'interior':
-        return { ...where, tunel: { $ne: null } };
-      case 'secado':
+        return where;
+      case 'tunel':
         return { ...where, interior: { $ne: null } };
+      case 'secado':
+        return { ...where, tunel: { $ne: null } };
       case 'parking':
         return { ...where, secado: { $ne: null } };
     }
@@ -64,8 +62,8 @@ const getMetrics = async (req, res) => {
     clientes: {},
     productos: {},
     promedios: [
-      { estacion: 'Tunel', Minutos: 0 },
       { estacion: 'Interior', Minutos: 0 },
+      { estacion: 'Tunel', Minutos: 0 },
       { estacion: 'Secado', Minutos: 0 },
       { estacion: 'Parking', Minutos: 0 },
     ],
@@ -86,8 +84,8 @@ const getMetrics = async (req, res) => {
       let mm = date.getMonth() + 1;
       let yyyymm = `${yyyy}-${mm.toString().length == 1 ? `0${mm}` : mm}`;
 
-      metrics.promedios[0].Minutos += service.promedio.tunel / l;
-      metrics.promedios[1].Minutos += service.promedio.interior / l;
+      metrics.promedios[0].Minutos += service.promedio.interior / l;
+      metrics.promedios[1].Minutos += service.promedio.tunel / l;
       metrics.promedios[2].Minutos += service.promedio.secado / l;
       metrics.promedios[3].Minutos += service.promedio.parking / l;
       metrics.clientes[service.cliente.patente]
