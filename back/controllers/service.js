@@ -31,7 +31,7 @@ const getServices = async (req, res) => {
     }
   };
   try {
-    const services = await Service.find(options()).populate('cliente');
+    const services = await Service.find(options()).populate('producto').populate('cliente');
     res.status(201).send(services);
   } catch (error) {
     res.status(503).send(error);
@@ -100,6 +100,7 @@ const getMetrics = async (req, res) => {
     });
     res.status(200).send({ ...metrics, q: l });
   } catch (error) {
+    console.log('error :', error);
     res.status(503).send(error);
   }
 };

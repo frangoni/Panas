@@ -1,9 +1,11 @@
 {
   "name": "front",
   "version": "1.0.0",
-  "scripts": {
-    "prebuild": "rimraf ../back/public",
+  "scripts": {  
+    "clean": "rimraf ../back/public",
+    "prestart": "npm run clean",
     "start": "parcel  ./src/index.html --dist-dir  ../back/public ",
+    "prebuild": "npm run clean",
     "build": "parcel build ./src/index.html --dist-dir ../back/public ",
     "postbuild": "npm start"
   },

@@ -99,8 +99,8 @@ img {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  height: 40vh;
-  width: max-content;
+  padding: 2.5%;
+  z-index: 5;
   background-color: rgba(100, 100, 100, 0.95);
   border: rgb(56, 40, 28) thick solid;
   border-radius: 60px;
@@ -173,8 +173,8 @@ img {
     width: 95vw;
   }
   #modal {
-    width: 90vw;
-    height: 40vh;
+    width: fit-content;
+    height: fit-content;
   }
 }
 
