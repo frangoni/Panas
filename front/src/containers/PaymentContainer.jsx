@@ -20,9 +20,16 @@ const PaymentContainer = () => {
 
   const handleNext = () => {
     const data = { id, method };
-    dispatch(setPaid(data));
-    setHidden(true);
-    notification.success(`Servicio abonado con ${method}`);
+    console.log('id :', id);
+    console.log('method :', method);
+    if (!method.length) {
+      notification.error('Seleccionar método');
+    } else {
+      dispatch(setPaid(data));
+      setHidden(true);
+      setMethod('');
+      notification.success(`Servicio abonado con ${method}`);
+    }
   };
 
   const filterServices = () => {

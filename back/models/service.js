@@ -58,10 +58,10 @@ serviceSchema.post('save', function (service) {
 
 serviceSchema.virtual('promedio').get(function () {
   const delay = {};
-  delay.tunel = this.tunel - this.checkin;
-  delay.interior = this.interior - this.tunel;
-  delay.secado = this.secado - this.interior;
-  delay.parking = this.parking - this.secado;
+  delay.interior = ((this.interior - this.checkin) / 60000).toFixed(2);
+  delay.tunel = ((this.tunel - this.interior) / 60000).toFixed(2);
+  delay.secado = ((this.secado - this.tunel) / 60000).toFixed(2);
+  delay.parking = ((this.parking - this.secado) / 60000).toFixed(2);
   return delay;
 });
 

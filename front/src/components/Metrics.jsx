@@ -17,6 +17,7 @@ import {
 const Metrics = ({ metrics }) => {
   const color = 'rgb(81, 79, 76)';
   const { clientes, ingresos, productos, promedios } = metrics;
+
   const compare = key => {
     return function (a, b) {
       return a[key] < b[key] ? -1 : 1;
@@ -31,10 +32,21 @@ const Metrics = ({ metrics }) => {
     return arr.sort(compare(sortKey));
   };
 
+  const mapIngresos = (obj, sortKey) => {
+    const arr = [];
+    for (const key in obj) {
+      let Tarjeta = ingresos.tarjeta[key] || 0;
+      arr.push({ Nombre: key, Efectivo: obj[key], Tarjeta });
+    }
+    return arr.sort(compare(sortKey));
+  };
+
   const productData = mapData(productos, 'Cantidad').slice(-7);
   const clientesData = mapData(clientes, 'Cantidad').slice(-7);
-  const ingresosData = mapData(ingresos, 'Nombre');
-
+  let ingresosData;
+  if (Object.keys(ingresos || {}).includes('efectivo')) {
+    ingresosData = mapIngresos(ingresos.efectivo || {}, 'Nombre');
+  }
   return (
     <div id='metrics'>
       {/*BARRAS */}
@@ -86,7 +98,8 @@ const Metrics = ({ metrics }) => {
           <XAxis dataKey='Nombre' stroke={'white'} />
           <YAxis stroke={'white'} />
           <Tooltip />
-          <Area type='monotone' dataKey='Cantidad' fill={color} stroke={'black'} />
+          <Area type='monotone' dataKey='Efectivo' fill={color} stroke={'black'} />
+          <Area type='monotone' dataKey='Tarjeta' fill={color} stroke={'black'} />
         </AreaChart>
       </div>
     </div>

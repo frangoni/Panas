@@ -59,9 +59,7 @@ const stationCheck = async (req, res) => {
 
 const setPaid = async (req, res) => {
   const serviceId = req.params.id;
-  console.log('serviceId :', serviceId);
   const method = req.params.method;
-  console.log('method :', method);
   try {
     const service = await Service.findById(serviceId);
     service.abonado = true;
@@ -69,7 +67,6 @@ const setPaid = async (req, res) => {
     service.save();
     return service;
   } catch (error) {
-    console.log('error :', error);
     return error;
   }
 };
@@ -77,7 +74,9 @@ const setPaid = async (req, res) => {
 const getMetrics = async (req, res) => {
   const { checkinDate, parkingDate } = req.query;
   const metrics = {
-    ingresos: {},
+    ingresosEnEfectivo: {},
+    ingresosEnTarjeta: {},
+    ingresos: { tarjeta: {}, efectivo: {} },
     clientes: {},
     productos: {},
     promedios: [
@@ -113,9 +112,20 @@ const getMetrics = async (req, res) => {
       metrics.productos[service.producto.nombre]
         ? (metrics.productos[service.producto.nombre] += 1)
         : (metrics.productos[service.producto.nombre] = 1);
-      metrics.ingresos[yyyymm]
-        ? (metrics.ingresos[yyyymm] += service.precio)
-        : (metrics.ingresos[yyyymm] = service.precio);
+
+      service.medioDePago == 'efectivo'
+        ? metrics.ingresos.efectivo[yyyymm]
+          ? (metrics.ingresos.efectivo[yyyymm] += service.precio)
+          : (metrics.ingresos.efectivo[yyyymm] = service.precio)
+        : metrics.ingresos.tarjeta[yyyymm]
+        ? (metrics.ingresos.tarjeta[yyyymm] += service.precio)
+        : (metrics.ingresos.tarjeta[yyyymm] = service.precio);
+      /*   ? metrics.ingresosEnEfectivo[yyyymm]
+          ? (metrics.ingresosEnEfectivo[yyyymm] += service.precio)
+          : (metrics.ingresosEnEfectivo[yyyymm] = service.precio)
+        : metrics.ingresosEnTarjeta[yyyymm]
+        ? (metrics.ingresosEnTarjeta[yyyymm] += service.precio)
+        : (metrics.ingresosEnTarjeta[yyyymm] = service.precio); */
     });
     res.status(200).send({ ...metrics, q: l });
   } catch (error) {

@@ -57,6 +57,5 @@ export default function Main() {
 }
 
 /* 
-4. Ingresos en efectivo y tarjeta en metricas (agregar un campo mas al modelo de servicio que diga con que se pago)
 5. Buscador por patente
 */
