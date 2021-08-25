@@ -9,6 +9,7 @@ import Checkin from './CheckinContainer';
 import Dashboard from './DashboardContainer';
 import Login from './LoginContainer';
 import Station from './StationContainer';
+import Payment from './PaymentContainer';
 
 export default function Main() {
   const { user } = useSelector(state => state.user);
@@ -38,6 +39,11 @@ export default function Main() {
         />
         <Route
           exact
+          path='/caja'
+          component={user && user.rol == 'caja' ? Payment : notAuthorized}
+        />
+        <Route
+          exact
           path='/:station'
           component={user && !['checkin', 'admin'].includes(user.rol) ? Station : notAuthorized}
         />
@@ -51,8 +57,6 @@ export default function Main() {
 }
 
 /* 
-2. Agregar modal a vista de servicio en estacion
 4. Ingresos en efectivo y tarjeta en metricas (agregar un campo mas al modelo de servicio que diga con que se pago)
 5. Buscador por patente
-
 */

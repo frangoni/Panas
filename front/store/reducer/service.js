@@ -22,6 +22,14 @@ export const updateService = createAsyncThunk('UPDATE_SERVICE', id => {
     .catch(e => e);
 });
 
+export const setPaid = createAsyncThunk('SET_PAID', data => {
+  const { id, method } = data;
+  return axios
+    .put(`/api/service/caja/${id}/${method}`)
+    .then(({ data }) => data)
+    .catch(e => e);
+});
+
 const initialState = {
   services: [],
   created: '',

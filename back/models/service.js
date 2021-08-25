@@ -20,6 +20,9 @@ const serviceSchema = new Schema({
     type: Boolean,
     default: false,
   },
+  medioDePago: {
+    type: String,
+  },
   cliente: {
     type: Types.ObjectId,
     ref: 'Client',

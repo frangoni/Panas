@@ -13,6 +13,7 @@ const StationModal = ({ setVisible, service }) => {
         <>
           <h3 style={{ color: 'wheat' }}>Recepción: {date.toLocaleString()}</h3>
           <h3 style={{ color: 'wheat' }}>Producto: {service.producto.nombre}</h3>
+          <h3 style={{ color: 'wheat' }}>Precio: ${service.producto.precio}</h3>
           <h3 style={{ color: 'wheat' }}>Estado: {service.estado}</h3>
           <h3 style={{ color: 'wheat' }}>Observaciones: {service.observaciones}</h3>
           <h3 style={{ color: 'wheat' }}>Patente: {service.cliente.patente}</h3>

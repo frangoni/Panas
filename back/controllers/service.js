@@ -28,6 +28,8 @@ const getServices = async (req, res) => {
         return { ...where, tunel: { $ne: null } };
       case 'parking':
         return { ...where, secado: { $ne: null } };
+      case 'caja':
+        return { abonado: false };
     }
   };
   try {
@@ -52,6 +54,23 @@ const stationCheck = async (req, res) => {
     res.status(201).send(service);
   } catch (error) {
     res.status(503).send(error);
+  }
+};
+
+const setPaid = async (req, res) => {
+  const serviceId = req.params.id;
+  console.log('serviceId :', serviceId);
+  const method = req.params.method;
+  console.log('method :', method);
+  try {
+    const service = await Service.findById(serviceId);
+    service.abonado = true;
+    service.medioDePago = method;
+    service.save();
+    return service;
+  } catch (error) {
+    console.log('error :', error);
+    return error;
   }
 };
 
@@ -105,4 +124,4 @@ const getMetrics = async (req, res) => {
   }
 };
 
-module.exports = { createService, stationCheck, getServices, getMetrics };
+module.exports = { createService, stationCheck, getServices, getMetrics, setPaid };

@@ -1,28 +1,28 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchServices, updateService } from '../../store/reducer/service';
-import Station from '../components/Station';
+import { fetchServices, setPaid } from '../../store/reducer/service';
 import ConfirmationModal from '../components/ConfirmationModal';
 import messageHandler from '../../utils/notification';
 import { useSnackbar } from 'notistack';
 import io from 'socket.io-client';
 import StationModal from '../components/StationModal';
+import Payment from '../components/Payment';
 
-const StationContainer = () => {
+const PaymentContainer = () => {
   const dispatch = useDispatch();
   const { services } = useSelector(state => state.service);
   const { user } = useSelector(state => state.user);
   const [hidden, setHidden] = useState(true);
   const [visible, setVisible] = useState(false);
+  const [method, setMethod] = useState('');
   const [id, setId] = useState('');
   const notification = messageHandler(useSnackbar());
 
   const handleNext = () => {
-    dispatch(updateService(id));
+    const data = { id, method };
+    dispatch(setPaid(data));
     setHidden(true);
-    const message =
-      user.rol == 'parking' ? 'Servicio finalizado' : 'Auto enviado a próxima estación';
-    notification.success(message);
+    notification.success(`Servicio abonado con ${method}`);
   };
 
   const filterServices = () => {
@@ -42,18 +42,23 @@ const StationContainer = () => {
 
   return (
     <>
-      <Station
+      <Payment
         services={services}
         user={user}
         setId={setId}
         setHidden={setHidden}
         setVisible={setVisible}
+        setMethod={setMethod}
+        method={method}
       />
       {hidden ? null : (
         <ConfirmationModal
           setHidden={setHidden}
           handleNext={handleNext}
-          text={`¿Estación terminada?`}
+          text={`¿Confirmar pago?`}
+          setMethod={setMethod}
+          method={method}
+          user={user}
         />
       )}
       {visible ? <StationModal setVisible={setVisible} service={filterServices()} /> : null}
@@ -61,4 +66,4 @@ const StationContainer = () => {
   );
 };
 
-export default StationContainer;
+export default PaymentContainer;
