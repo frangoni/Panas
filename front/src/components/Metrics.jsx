@@ -16,6 +16,7 @@ import {
 
 const Metrics = ({ metrics }) => {
   const color = 'rgb(81, 79, 76)';
+  const color1 = 'rgb(8, 79, 76)';
   const { clientes, ingresos, productos, promedios } = metrics;
 
   const compare = key => {
@@ -99,7 +100,7 @@ const Metrics = ({ metrics }) => {
           <YAxis stroke={'white'} />
           <Tooltip />
           <Area type='monotone' dataKey='Efectivo' fill={color} stroke={'black'} />
-          <Area type='monotone' dataKey='Tarjeta' fill={color} stroke={'black'} />
+          <Area type='monotone' dataKey='Tarjeta' fill={color1} stroke={'black'} />
         </AreaChart>
       </div>
     </div>

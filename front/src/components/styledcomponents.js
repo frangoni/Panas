@@ -3,7 +3,8 @@ import styled, { keyframes } from 'styled-components';
 export const GlassCard = styled.div`
   width: min-content;
   border-radius: 60px;
-  box-shadow: inset -10px -10px 15px rgba(40, 44, 52, 0.7), inset 10px 10px 15px rgba(255, 255, 255, 0.17);
+  box-shadow: inset -10px -10px 15px rgba(40, 44, 52, 0.7),
+    inset 10px 10px 15px rgba(255, 255, 255, 0.17);
   margin: 10vh auto;
   background-color: rgba(81, 79, 76);
   @media (max-width: 1200px) {
@@ -41,7 +42,8 @@ export const Table = styled.table`
   margin: 10vh auto;
   border-radius: 25px;
   width: 80%;
-  box-shadow: inset -10px -10px 15px rgba(40, 44, 52, 0.7), inset 10px 10px 15px rgba(255, 255, 255, 0.17);
+  box-shadow: inset -10px -10px 15px rgba(40, 44, 52, 0.7),
+    inset 10px 10px 15px rgba(255, 255, 255, 0.17);
   background-color: rgba(81, 79, 76);
   @media (max-width: 1200px) {
     margin: 1vh auto;
@@ -61,7 +63,6 @@ export const TableHeader = styled.th`
 export const TableData = styled.td`
   font-size: larger;
   font-weight: bolder;
-  width: 40%;
 `;
 
 export const Input = styled.input`
@@ -85,7 +86,8 @@ export const Input = styled.input`
 
 export const Picker = styled.div`
   border-radius: 0 0 60px 60px;
-  box-shadow: inset -10px -10px 15px rgb(40 44 52 / 70%), inset 10px 10px 15px rgb(255 255 255 / 17%);
+  box-shadow: inset -10px -10px 15px rgb(40 44 52 / 70%),
+    inset 10px 10px 15px rgb(255 255 255 / 17%);
   background-color: rgba(81, 79, 76);
   position: fixed;
   display: flex;

@@ -57,6 +57,18 @@ const stationCheck = async (req, res) => {
   }
 };
 
+const getServicesByPlate = async (req, res) => {
+  const patente = req.params.patente;
+  try {
+    const cliente = await Client.findOne({ patente });
+    const services = await Service.find({ cliente }).populate('producto').populate('cliente');
+    res.status(201).send(services);
+  } catch (error) {
+    console.log('error :', error);
+    res.status(404).send(error);
+  }
+};
+
 const setPaid = async (req, res) => {
   const serviceId = req.params.id;
   const method = req.params.method;
@@ -120,12 +132,6 @@ const getMetrics = async (req, res) => {
         : metrics.ingresos.tarjeta[yyyymm]
         ? (metrics.ingresos.tarjeta[yyyymm] += service.precio)
         : (metrics.ingresos.tarjeta[yyyymm] = service.precio);
-      /*   ? metrics.ingresosEnEfectivo[yyyymm]
-          ? (metrics.ingresosEnEfectivo[yyyymm] += service.precio)
-          : (metrics.ingresosEnEfectivo[yyyymm] = service.precio)
-        : metrics.ingresosEnTarjeta[yyyymm]
-        ? (metrics.ingresosEnTarjeta[yyyymm] += service.precio)
-        : (metrics.ingresosEnTarjeta[yyyymm] = service.precio); */
     });
     res.status(200).send({ ...metrics, q: l });
   } catch (error) {
@@ -134,4 +140,11 @@ const getMetrics = async (req, res) => {
   }
 };
 
-module.exports = { createService, stationCheck, getServices, getMetrics, setPaid };
+module.exports = {
+  createService,
+  stationCheck,
+  getServices,
+  getMetrics,
+  setPaid,
+  getServicesByPlate,
+};

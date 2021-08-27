@@ -17,10 +17,13 @@ import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import IconButton from '@material-ui/core/IconButton';
+import SearchIcon from '@material-ui/icons/Search';
 
 import AddProducts from '../containers/AddProductContainer';
 import AllProductsContainer from './AllProductsContainer';
 import MetricsContainer from './MetricsContainer';
+import AddProductsContainer from '../containers/AddProductContainer';
+import SearchPlateContainer from './SearchPlateContainer';
 
 const drawerWidth = 240;
 
@@ -130,6 +133,13 @@ export default function DashboardContainer() {
             </ListItemIcon>
             <ListItemText style={{ color: 'white' }} primary={`Añadir Productos`} />
           </ListItem>
+          <Divider />
+          <ListItem button onClick={() => setItems(4)}>
+            <ListItemIcon>
+              <SearchIcon style={{ color: 'white' }} />
+            </ListItemIcon>
+            <ListItemText style={{ color: 'white' }} primary={`Buscar Patente`} />
+          </ListItem>
         </div>
       </Drawer>
 
@@ -142,7 +152,10 @@ export default function DashboardContainer() {
             {items == 2 && <AllProductsContainer />}
           </Grid>
           <Grid item xs={12}>
-            {items == 3 && <AddProducts />}
+            {items == 3 && <AddProductsContainer />}
+          </Grid>
+          <Grid item xs={12}>
+            {items == 4 && <SearchPlateContainer />}
           </Grid>
         </Grid>
       </Container>

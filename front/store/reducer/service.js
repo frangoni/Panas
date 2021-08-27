@@ -22,6 +22,13 @@ export const updateService = createAsyncThunk('UPDATE_SERVICE', id => {
     .catch(e => e);
 });
 
+export const getServicesByPlate = createAsyncThunk('GET_SERVICES_BY_PLATE', patente => {
+  return axios
+    .get(`/api/service/search/${patente}`)
+    .then(({ data }) => data)
+    .catch(e => e);
+});
+
 export const setPaid = createAsyncThunk('SET_PAID', data => {
   const { id, method } = data;
   return axios
@@ -45,6 +52,9 @@ const service = createReducer(initialState, {
     return { ...state, created: '' };
   },
   [fetchServices.fulfilled]: (state, action) => {
+    return { ...state, services: action.payload };
+  },
+  [getServicesByPlate.fulfilled]: (state, action) => {
     return { ...state, services: action.payload };
   },
 });
