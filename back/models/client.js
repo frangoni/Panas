@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const clientSchema = new Schema({
@@ -6,7 +6,7 @@ const clientSchema = new Schema({
     type: String,
     unique: true,
     required: true,
-    match: [/.+\@.+\..+/, "Por favor ingrese un correo válido"],
+    match: [/.+\@.+\..+/, 'Por favor ingrese un correo válido'],
   },
   nombre: {
     type: String,
@@ -15,7 +15,7 @@ const clientSchema = new Schema({
   telefono: {
     type: Number,
     required: true,
-    set: (telefono) => Number(`54011${telefono}`),
+    set: telefono => Number(`54011${telefono}`),
   },
   //GUARDAR CON MAYUSCULA Y SIN ESPACIOS
   patente: {
@@ -33,5 +33,5 @@ const clientSchema = new Schema({
   },
 });
 
-const Client = mongoose.model("Client", clientSchema);
+const Client = mongoose.model('Client', clientSchema);
 module.exports = Client;

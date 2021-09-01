@@ -1,6 +1,6 @@
 const Service = require('../models/service');
 const Client = require('../models/client');
-const sendEmail = require('../email');
+const { sendEmail, sendWhatsapp } = require('../email');
 
 const createService = async (req, res) => {
   const { client, service } = req.body;
@@ -47,10 +47,10 @@ const stationCheck = async (req, res) => {
     const service = await Service.findById(serviceId).populate('cliente');
     service[station] = Date.now();
     service.save();
-    const { email, nombre } = service.cliente;
+    const { email, nombre, telefono } = service.cliente;
     const whom = nombre.substr(0, nombre.indexOf(' '));
     station == 'secado' ? sendEmail(email, whom) : null;
-
+    station == 'secado' ? sendWhatsapp(nombre, telefono) : null;
     res.status(201).send(service);
   } catch (error) {
     res.status(503).send(error);
