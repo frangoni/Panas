@@ -4,9 +4,7 @@ import CancelIcon from '@material-ui/icons/Cancel';
 import { IconButton } from '@material-ui/core';
 
 const StationModal = ({ setVisible, service }) => {
-  console.log('service :', service);
   const date = new Date(service.checkin);
-  console.log('date :', typeof date);
   return (
     <TransitionModal>
       <div id='modal'>

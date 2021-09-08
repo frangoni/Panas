@@ -20,8 +20,6 @@ const PaymentContainer = () => {
 
   const handleNext = () => {
     const data = { id, method };
-    console.log('id :', id);
-    console.log('method :', method);
     if (!method.length) {
       notification.error('Seleccionar método');
     } else {

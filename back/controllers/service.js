@@ -10,7 +10,6 @@ const createService = async (req, res) => {
     const serviceDB = await Service.create({ ...service, cliente: clientDB });
     res.status(201).send(serviceDB);
   } catch (error) {
-    console.log('error :', error);
     res.status(503).send(error);
   }
 };
@@ -64,7 +63,6 @@ const getServicesByPlate = async (req, res) => {
     const services = await Service.find({ cliente }).populate('producto').populate('cliente');
     res.status(201).send(services);
   } catch (error) {
-    console.log('error :', error);
     res.status(404).send(error);
   }
 };
@@ -135,7 +133,6 @@ const getMetrics = async (req, res) => {
     });
     res.status(200).send({ ...metrics, q: l });
   } catch (error) {
-    console.log('error :', error);
     res.status(503).send(error);
   }
 };

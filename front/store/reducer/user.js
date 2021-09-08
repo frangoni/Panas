@@ -64,15 +64,13 @@ const user = createReducer(initialState, {
   [getUsers.fulfilled]: (state, action) => {
     return { ...state, users: action.payload };
   },
-  [changePassword.fulfilled]: (state, { payload }) => {
-    console.log('payload :', payload);
+  [changePassword.fulfilled]: state => {
     return { ...state, changed: 'yes' };
   },
   [changePassword.pending]: state => {
     return { ...state, changed: '' };
   },
-  [changePassword.rejected]: (state, { payload }) => {
-    console.log('payload :', payload);
+  [changePassword.rejected]: state => {
     return { ...state, changed: 'no' };
   },
 });
