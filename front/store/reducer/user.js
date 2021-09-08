@@ -22,9 +22,25 @@ export const logout = createAsyncThunk('LOGOUT', data => {
     .catch(e => e);
 });
 
+export const getUsers = createAsyncThunk('GET_USERS', () => {
+  return axios
+    .get('/api/user')
+    .then(({ data }) => data)
+    .catch(e => e);
+});
+
+export const changePassword = createAsyncThunk('CHANGE_PASSWORD', data => {
+  return axios
+    .post('/api/user/change', data)
+    .then(({ data }) => data)
+    .catch(e => e);
+});
+
 const initialState = {
   user: {},
+  users: [],
   didLogin: '',
+  changed: '',
 };
 
 const user = createReducer(initialState, {
@@ -39,11 +55,25 @@ const user = createReducer(initialState, {
   [fetchMe.fulfilled]: (state, action) => {
     return { ...state, user: action.payload };
   },
-  [logout.pending]: (state, action) => {
+  [logout.pending]: state => {
     return { ...state, didLogin: '' };
   },
-  [logout.fulfilled]: (state, action) => {
+  [logout.fulfilled]: state => {
     return { ...state, user: {} };
+  },
+  [getUsers.fulfilled]: (state, action) => {
+    return { ...state, users: action.payload };
+  },
+  [changePassword.fulfilled]: (state, { payload }) => {
+    console.log('payload :', payload);
+    return { ...state, changed: 'yes' };
+  },
+  [changePassword.pending]: state => {
+    return { ...state, changed: '' };
+  },
+  [changePassword.rejected]: (state, { payload }) => {
+    console.log('payload :', payload);
+    return { ...state, changed: 'no' };
   },
 });
 

@@ -1,6 +1,5 @@
+require('dotenv').config();
 const { EMAIL, PASS, ACCOUNTSID, AUTHTOKEN } = process.env;
-console.log('PASS :', PASS);
-console.log('EMAIL :', EMAIL);
 const nodemailer = require('nodemailer');
 const client = require('twilio')(ACCOUNTSID, AUTHTOKEN);
 
@@ -16,7 +15,7 @@ const sendEmail = (toWhom, whom) => {
   const mail = {
     from: EMAIL,
     to: toWhom,
-    subject: `Hola ${whom}! Tu auto ya está listo para retirar.`,
+    subject: `Hola ${whom}! Tu auto ya está listo para retirar 🚗.`,
     html: `<img src="cid:${EMAIL}"/>`,
     attachments: [
       {
@@ -32,13 +31,13 @@ const sendEmail = (toWhom, whom) => {
 };
 
 const sendWhatsapp = (nombre, telefono) => {
-  client.messages
+  return client.messages
     .create({
       body: `Hola ${nombre}! Tu auto está listo y limpio para ser retirado 🚗. Muchas gracias por confiar 😍`,
       from: 'whatsapp:+14155238886',
       to: `whatsapp:+${telefono}`,
     })
-    .then(message => console.log(message.sid))
+    .then(message => console.log(message))
     .catch(err => console.log(err))
     .done();
 };

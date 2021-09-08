@@ -17,7 +17,6 @@ const clientSchema = new Schema({
     required: true,
     set: telefono => Number(`54011${telefono}`),
   },
-  //GUARDAR CON MAYUSCULA Y SIN ESPACIOS
   patente: {
     type: String,
     unique: true,

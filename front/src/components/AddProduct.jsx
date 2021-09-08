@@ -30,9 +30,16 @@ const AdminProducts = ({ handleSubmit, setNombre, setPrecio, border, nombre, pre
             value={precio}
             label='Precio'
             name='precio'
-            onChange={({ target: { value } }) => /^[0-9]{0,5}$/.test(value) && setPrecio(Number(value))}
+            onChange={({ target: { value } }) =>
+              /^[0-9]{0,5}$/.test(value) && setPrecio(Number(value))
+            }
           />
-          <Button onClick={handleSubmit} id='btn' fontSize='large' style={{ border: `thin solid ${border}` }}>
+          <Button
+            onClick={handleSubmit}
+            id='btn'
+            fontSize='large'
+            style={{ border: `thin solid ${border}` }}
+          >
             CREAR
           </Button>
         </div>

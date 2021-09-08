@@ -68,6 +68,7 @@ export const TableData = styled.td`
 export const Input = styled.input`
   background: transparent;
   color: white;
+  outline: none;
   font-size: larger;
   font-weight: bolder;
   border-bottom: 1px white thin;
@@ -79,10 +80,21 @@ export const Input = styled.input`
   }
 `;
 
-/* 
-&:nth-child(even) {
-  background-color: rgba(113, 113, 113);
-} */
+export const Option = styled.option`
+  background: rgba(81, 79, 76);
+  color: wheat;
+  outline: none;
+  font-size: larger;
+  font-weight: bolder;
+`;
+
+export const Select = styled.select`
+  background: transparent;
+  color: white;
+  outline: none;
+  font-size: larger;
+  font-weight: bolder;
+`;
 
 export const Picker = styled.div`
   border-radius: 0 0 60px 60px;

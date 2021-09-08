@@ -27,4 +27,25 @@ const me = (req, res) => {
   res.send({ nombre, rol });
 };
 
-module.exports = { register, login, logOut, me };
+const getUsers = async (req, res) => {
+  try {
+    const users = await User.find();
+    res.send(users);
+  } catch (error) {
+    return error;
+  }
+};
+
+const updatePass = async (req, res) => {
+  const { password, id } = req.body;
+  try {
+    const user = await User.findById(id);
+    user.clave = password;
+    user.save();
+    res.send(user);
+  } catch (error) {
+    res.send(error);
+  }
+};
+
+module.exports = { register, login, logOut, me, getUsers, updatePass };

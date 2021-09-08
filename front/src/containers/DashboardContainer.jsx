@@ -18,12 +18,13 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import IconButton from '@material-ui/core/IconButton';
 import SearchIcon from '@material-ui/icons/Search';
+import LockIcon from '@material-ui/icons/Lock';
 
-import AddProducts from '../containers/AddProductContainer';
 import AllProductsContainer from './AllProductsContainer';
 import MetricsContainer from './MetricsContainer';
 import AddProductsContainer from '../containers/AddProductContainer';
 import SearchPlateContainer from './SearchPlateContainer';
+import PasswordContainer from './PasswordContainer';
 
 const drawerWidth = 240;
 
@@ -120,13 +121,15 @@ export default function DashboardContainer() {
             <ListItemText style={{ color: 'white' }} primary={`Métricas`} />
           </ListItem>
           <Divider />
+
           <ListItem button onClick={() => setItems(2)}>
             <ListItemIcon>
-              <ShoppingBasketIcon style={{ color: 'white' }} />
+              <SearchIcon style={{ color: 'white' }} />
             </ListItemIcon>
-            <ListItemText style={{ color: 'white' }} primary={`Productos`} />
+            <ListItemText style={{ color: 'white' }} primary={`Buscar Patente`} />
           </ListItem>
           <Divider />
+
           <ListItem button onClick={() => setItems(3)}>
             <ListItemIcon>
               <AddIcon style={{ color: 'white' }} />
@@ -134,12 +137,22 @@ export default function DashboardContainer() {
             <ListItemText style={{ color: 'white' }} primary={`Añadir Productos`} />
           </ListItem>
           <Divider />
+
           <ListItem button onClick={() => setItems(4)}>
             <ListItemIcon>
-              <SearchIcon style={{ color: 'white' }} />
+              <ShoppingBasketIcon style={{ color: 'white' }} />
             </ListItemIcon>
-            <ListItemText style={{ color: 'white' }} primary={`Buscar Patente`} />
+            <ListItemText style={{ color: 'white' }} primary={`Productos`} />
           </ListItem>
+          <Divider />
+
+          <ListItem button onClick={() => setItems(5)}>
+            <ListItemIcon>
+              <LockIcon style={{ color: 'white' }} />
+            </ListItemIcon>
+            <ListItemText style={{ color: 'white' }} primary={`Cambiar Contraseñas`} />
+          </ListItem>
+          <Divider />
         </div>
       </Drawer>
 
@@ -149,13 +162,16 @@ export default function DashboardContainer() {
             {items == 1 && <MetricsContainer />}
           </Grid>
           <Grid item xs={12}>
-            {items == 2 && <AllProductsContainer />}
+            {items == 2 && <SearchPlateContainer />}
           </Grid>
           <Grid item xs={12}>
             {items == 3 && <AddProductsContainer />}
           </Grid>
           <Grid item xs={12}>
-            {items == 4 && <SearchPlateContainer />}
+            {items == 4 && <AllProductsContainer />}
+          </Grid>
+          <Grid item xs={12}>
+            {items == 5 && <PasswordContainer />}
           </Grid>
         </Grid>
       </Container>

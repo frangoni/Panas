@@ -55,7 +55,3 @@ export default function Main() {
     <Loading />
   );
 }
-
-/* 
-5. Buscador por patente
-*/

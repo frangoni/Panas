@@ -11,6 +11,7 @@ import {
 
 const SearchPlate = ({ patente, setPatente, services }) => {
   const capitalize = string => {
+    if (!string) return '';
     return string.charAt(0).toUpperCase() + string.slice(1);
   };
   return (
