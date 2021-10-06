@@ -1,6 +1,6 @@
 const Service = require('../models/service');
 const Client = require('../models/client');
-const { sendEmail, sendWhatsapp } = require('../email');
+const { sendEmail } = require('../email');
 
 const createService = async (req, res) => {
   const { client, service } = req.body;
@@ -8,10 +8,47 @@ const createService = async (req, res) => {
     let clientDB = await Client.findOne({ patente: client.patente });
     if (!clientDB) clientDB = await Client.create(client);
     const serviceDB = await Service.create({ ...service, cliente: clientDB });
+    /*const activeServices = await Service.find({ checkin: { $ne: null }, secado: null });
+    const { email, nombre } = serviceDB.cliente;
+    const whom = nombre.substr(0, nombre.indexOf(' '));
+    const estimatedTime = estimateTime(activeServices);
+    sendEstimatedTime(email, whom, estimatedTime); */
     res.status(201).send(serviceDB);
   } catch (error) {
     res.status(503).send(error);
   }
+};
+
+const estimateTime = services => {
+  if (!services.length) return 32;
+  let minutes = 0;
+  const stations = {
+    interior: 0,
+    tunel: 0,
+    secado: 0,
+  };
+  const promedios = {
+    interior: 12,
+    tunel: 10,
+    secado: 10,
+  };
+
+  for (let i = 0; i < services.length; i++) {
+    if (services[i].interior == null) {
+      stations.interior += 1;
+      stations.tunel += 1;
+      stations.secado += 1;
+    } else if (services[i].tunel == null) {
+      stations.tunel += 1;
+      stations.secado += 1;
+    } else if (services[i].secado == null) {
+      stations.secado += 1;
+    }
+  }
+  for (const station in stations) {
+    minutes += stations[station] * promedios[station];
+  }
+  return minutes;
 };
 
 const getServices = async (req, res) => {
@@ -49,7 +86,6 @@ const stationCheck = async (req, res) => {
     const { email, nombre, telefono } = service.cliente;
     const whom = nombre.substr(0, nombre.indexOf(' '));
     station == 'secado' ? sendEmail(email, whom) : null;
-    station == 'secado' ? sendWhatsapp(nombre, telefono) : null;
     res.status(201).send(service);
   } catch (error) {
     res.status(503).send(error);

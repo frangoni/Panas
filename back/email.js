@@ -1,7 +1,6 @@
 require('dotenv').config();
-const { EMAIL, PASS, ACCOUNTSID, AUTHTOKEN } = process.env;
+const { EMAIL, PASS } = process.env;
 const nodemailer = require('nodemailer');
-const client = require('twilio')(ACCOUNTSID, AUTHTOKEN);
 
 const transporter = nodemailer.createTransport({
   service: 'gmail',
@@ -11,35 +10,46 @@ const transporter = nodemailer.createTransport({
   },
 });
 
+const backUpmail = to => {
+  return {
+    from: EMAIL,
+    to: EMAIL,
+    subject: `Mail rechazado`,
+    text: `Reboto mail al cliente con correo ${to}`,
+  };
+};
+
 const sendEmail = (toWhom, whom) => {
   const mail = {
     from: EMAIL,
     to: toWhom,
     subject: `Hola ${whom}! Tu auto ya está listo para retirar 🚗.`,
-    html: `<img src="cid:${EMAIL}"/>`,
+    html: { path: './email/index.html' },
     attachments: [
       {
         filename: 'panas.png',
-        path: './assets/mail.jpg',
-        cid: EMAIL,
+        path: './email/images/panas.png',
+        cid: 'panas',
       },
     ],
+  };
+  transporter.sendMail(mail, (err, info) => {
+    err
+      ? (transporter.sendMail(backUpmail(toWhom)), console.log('ERROR AL ENVIAR MAIL', err))
+      : console.log('EMAIL ENVIADO!', info);
+  });
+};
+
+const sendEstimatedTime = (toWhom, whom, minutes) => {
+  const mail = {
+    from: EMAIL,
+    to: toWhom,
+    subject: `Lavadero Los Panas`,
+    text: `Hola ${whom}! Gracias por dejar tu auto 🚗.\nEl tiempo estimado de entrega es de: ${minutes} minutos ⏱.\nVa a recibir un email cuando esté listo para retirar 🚩.\nSaludos!`,
   };
   transporter.sendMail(mail, (err, info) => {
     err ? console.log('ERROR AL ENVIAR MAIL', err) : console.log('EMAIL ENVIADO!', info);
   });
 };
 
-const sendWhatsapp = (nombre, telefono) => {
-  return client.messages
-    .create({
-      body: `Hola ${nombre}! Tu auto está listo y limpio para ser retirado 🚗. Muchas gracias por confiar 😍`,
-      from: 'whatsapp:+14155238886',
-      to: `whatsapp:+${telefono}`,
-    })
-    .then(message => console.log(message))
-    .catch(err => console.log(err))
-    .done();
-};
-
-module.exports = { sendEmail, sendWhatsapp };
+module.exports = { sendEmail, sendEstimatedTime };
