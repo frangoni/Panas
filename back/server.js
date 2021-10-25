@@ -65,5 +65,6 @@ app.use('/api', routes);
 app.get('/*', (req, res) => {
   res.sendFile(__dirname + '/public/' + 'index.html');
 });
+app.set('trust proxy', true);
 
 server.listen(PORT, () => console.log(`Try out http://localhost:${PORT}/`));

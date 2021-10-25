@@ -80,13 +80,7 @@ const Metrics = ({ metrics }) => {
       <div id='funnelchart'>
         <p>CLIENTES</p>
         <FunnelChart width={450} height={300}>
-          <Funnel
-            fill={color}
-            dataKey='Cantidad'
-            nameKey='Nombre'
-            data={clientesData}
-            stroke={'white'}
-          >
+          <Funnel fill={color} dataKey='Cantidad' nameKey='Nombre' data={clientesData} stroke={'white'}>
             <LabelList fill='white' dataKey='Nombre' />
           </Funnel>
           <Tooltip />
