@@ -6,8 +6,7 @@
     "prestart": "npm run clean",
     "start": "parcel  ./src/index.html --dist-dir  ../back/public ",
     "prebuild": "npm run clean",
-    "build": "parcel build ./src/index.html --dist-dir ../back/public ",
-    "postbuild": "npm start"
+    "build": "parcel build ./src/index.html --dist-dir ../back/public "
   },
   "author": "",
   "license": "ISC",
