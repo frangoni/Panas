@@ -1,0 +1,20 @@
+{
+  "name": "panas",
+  "version": "1.0.0",
+  "description": "PANAS",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start":"cd back/ && npm start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/frangoni/Panas.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/frangoni/Panas/issues"
+  },
+  "homepage": "https://github.com/frangoni/Panas#readme"
+}
