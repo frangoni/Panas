@@ -1,8 +1,8 @@
 require('dotenv').config();
 const mongoose = require('mongoose');
-const { DB_PASS } = process.env;
+const { PASS } = process.env;
 mongoose
-  .connect(`mongodb+srv://dario:${DB_PASS}@panas.hb59c.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`, {
+  .connect(`mongodb+srv://admin:${PASS}@cluster0.twouk.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useFindAndModify: false,

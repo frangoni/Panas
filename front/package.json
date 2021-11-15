@@ -3,9 +3,8 @@
   "version": "1.0.0",
   "scripts": {  
     "clean": "rimraf ../back/public",
-    "prestart": "npm run clean",
     "start": "parcel  ./src/index.html --dist-dir  ../back/public ",
-    "prebuild": "npm run clean",
+    "prestart": "npm run clean && npm run build",
     "build": "parcel build ./src/index.html --dist-dir ../back/public "
   },
   "author": "",
